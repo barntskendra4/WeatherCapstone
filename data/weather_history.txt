@@ -1,0 +1,10 @@
+2025-06-09,New Brunswick,78,Sunny
+2025-06-08,New Brunswick,75,Partly Cloudy
+2025-06-07,New Brunswick,82,Thunderstorms
+2025-06-06,New Brunswick,70,Rainy
+2025-06-05,New Brunswick,85,Clear
+2025-06-04,Princeton,73,Overcast
+2025-06-03,Princeton,79,Sunny
+2025-06-02,Princeton,68,Light Rain
+2025-06-01,New York,71,Foggy
+2025-05-31,New York,76,Sunny
