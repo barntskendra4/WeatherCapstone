@@ -7,4 +7,122 @@
 2025-06-03,Princeton,79,Sunny
 2025-06-02,Princeton,68,Light Rain
 2025-06-01,New York,71,Foggy
-2025-05-31,New York,76,Sunny
+2025-05-31,New York,76,Sunny2025-06-30 18:27:17 - New Brunswick: 77°F, overcast clouds, Humidity: 71%
+2025-06-30 18:28:14 - New Brunswick: 77°F, overcast clouds, Humidity: 71%
+2025-06-30 19:03:04 - New Brunswick: 75°F, overcast clouds, Humidity: 73%
+2025-06-30 19:23:43 - Lincoln: 83°F, clear sky, Humidity: 43%
+2025-06-30 19:27:16 - Denver: 79°F, scattered clouds, Humidity: 46%
+2025-06-30 19:33:44 - New Brunswick: 73°F, broken clouds, Humidity: 73%
+2025-06-30 19:37:30 - New Brunswick: 73°F, broken clouds, Humidity: 73%
+2025-06-30 19:38:38 - New Brunswick: 73°F, broken clouds, Humidity: 73%
+2025-06-30 19:41:43 - New Brunswick: 72°F, broken clouds, Humidity: 75%
+2025-06-30 19:44:45 - New Brunswick: 72°F, broken clouds, Humidity: 75%
+2025-06-30 19:55:55 - New Brunswick: 72°F, broken clouds, Humidity: 76%
+2025-06-30 20:00:10 - New Brunswick: 72°F, broken clouds, Humidity: 76%
+2025-06-30 20:02:18 - New Brunswick: 72°F, broken clouds, Humidity: 76%
+2025-06-30 20:05:34 - New Brunswick: 72°F, broken clouds, Humidity: 76%
+2025-06-30 20:06:19 - New Brunswick: 71°F, broken clouds, Humidity: 76%
+2025-06-30 20:06:41 - New Brunswick: 71°F, broken clouds, Humidity: 76%
+2025-06-30 20:08:56 - New Brunswick: 71°F, broken clouds, Humidity: 76%
+2025-07-01 18:48:57 - New Brunswick: 72°F, overcast clouds, Humidity: 88%
+2025-07-01 18:50:03 - miami: 83°F, scattered clouds, Humidity: 82%
+2025-07-01 18:54:40 - miami: 83°F, scattered clouds, Humidity: 82%
+2025-07-02 13:03:40 - miami: 87°F, clear sky, Humidity: 74%
+2025-07-02 13:05:51 - miami: 88°F, clear sky, Humidity: 74%
+2025-07-02 13:06:51 - miami: 88°F, overcast clouds, Humidity: 72%
+2025-07-02 13:11:24 - miami: 88°F, overcast clouds, Humidity: 72%
+2025-07-02 13:12:28 - miami: 88°F, overcast clouds, Humidity: 72%
+2025-07-02 13:22:22 - miami: 89°F, overcast clouds, Humidity: 71%
+2025-07-02 13:53:33 - miami: 88°F, overcast clouds, Humidity: 71%
+2025-07-02 13:55:19 - miami: 88°F, overcast clouds, Humidity: 71%
+2025-07-02 13:56:41 - miami: 87°F, overcast clouds, Humidity: 73%
+2025-07-02 14:00:23 - miami: 87°F, overcast clouds, Humidity: 73%
+2025-07-02 14:01:43 - miami: 87°F, overcast clouds, Humidity: 73%
+2025-07-02 14:02:28 - miami: 87°F, overcast clouds, Humidity: 73%
+2025-07-02 14:05:22 - miami: 87°F, overcast clouds, Humidity: 73%
+2025-07-02 14:05:47 - miami: 87°F, overcast clouds, Humidity: 73%
+2025-07-02 17:33:26 - miami: 85°F, overcast clouds, Humidity: 83%
+2025-07-02 17:43:41 - miami: 84°F, overcast clouds, Humidity: 83%
+2025-07-02 17:43:53 - miami: 84°F, overcast clouds, Humidity: 83%
+2025-07-02 17:47:04 - miami: 84°F, overcast clouds, Humidity: 83%
+2025-07-02 17:47:30 - Lincoln: 92°F, clear sky, Humidity: 46%
+2025-07-02 17:48:10 - Omaha: 88°F, few clouds, Humidity: 67%
+2025-07-02 17:51:53 - miami: 84°F, overcast clouds, Humidity: 83%
+2025-07-02 17:52:13 - miami: 84°F, overcast clouds, Humidity: 83%
+2025-07-02 17:57:00 - miami: 84°F, overcast clouds, Humidity: 82%
+2025-07-02 17:59:03 - miami: 84°F, overcast clouds, Humidity: 83%
+2025-07-02 17:59:55 - Lincoln: 93°F, clear sky, Humidity: 46%
+2025-07-02 18:00:08 - Lincoln: 93°F, clear sky, Humidity: 46%
+2025-07-02 18:00:23 - Lincoln: 93°F, clear sky, Humidity: 46%
+2025-07-02 18:00:40 - Lincoln: 93°F, clear sky, Humidity: 46%
+2025-07-02 18:19:13 - Lincoln: 92°F, clear sky, Humidity: 46%
+2025-07-02 18:20:01 - Lincoln: 92°F, clear sky, Humidity: 46%
+2025-07-02 18:34:14 - Lincoln: 92°F, clear sky, Humidity: 46%
+2025-07-02 18:35:20 - Lincoln: 92°F, clear sky, Humidity: 46%
+2025-07-02 18:36:02 - Lincoln: 92°F, clear sky, Humidity: 46%
+2025-07-02 18:44:26 - Lincoln: 92°F, clear sky, Humidity: 47%
+2025-07-02 18:45:07 - Lincoln: 92°F, clear sky, Humidity: 47%
+2025-07-02 18:46:33 - Lincoln: 92°F, clear sky, Humidity: 47%
+2025-07-02 18:47:24 - Lincoln: 92°F, clear sky, Humidity: 47%
+2025-07-02 18:50:04 - Lincoln: 92°F, clear sky, Humidity: 47%
+2025-07-02 18:50:39 - Lincoln: 92°F, clear sky, Humidity: 47%
+2025-07-02 18:50:55 - Lincoln: 92°F, clear sky, Humidity: 47%
+2025-07-02 18:51:16 - Lincoln: 92°F, clear sky, Humidity: 47%
+2025-07-02 18:52:13 - Lincoln: 92°F, clear sky, Humidity: 47%
+2025-07-02 18:52:42 - Lincoln: 92°F, clear sky, Humidity: 47%
+2025-07-02 19:17:33 - Lincoln: 91°F, clear sky, Humidity: 47%
+2025-07-02 19:21:32 - Lincoln: 91°F, clear sky, Humidity: 48%
+2025-07-02 19:23:07 - Lincoln: 91°F, clear sky, Humidity: 48%
+2025-07-02 19:23:52 - Lincoln: 91°F, clear sky, Humidity: 48%
+2025-07-02 20:20:34 - Lincoln: 89°F, clear sky, Humidity: 52%
+2025-07-07 17:08:38 - Lincoln: 88°F, clear sky, Humidity: 65%
+2025-07-07 17:12:58 - Lincoln: 89°F, clear sky, Humidity: 58%
+2025-07-07 17:14:41 - Lincoln: 89°F, clear sky, Humidity: 58%
+2025-07-07 17:15:01 - Lincoln: 89°F, clear sky, Humidity: 58%
+2025-07-07 17:48:46 - Lincoln: 89°F, clear sky, Humidity: 63%
+2025-07-07 17:48:58 - Lincoln: 89°F, clear sky, Humidity: 63%
+2025-07-07 17:49:31 - Lincoln: 89°F, clear sky, Humidity: 63%
+2025-07-07 17:57:39 - Lincoln: 89°F, clear sky, Humidity: 57%
+2025-07-07 18:01:21 - Lincoln: 88°F, clear sky, Humidity: 57%
+2025-07-07 18:09:10 - Lincoln: 89°F, clear sky, Humidity: 57%
+2025-07-07 19:14:02 - Lincoln: 88°F, clear sky, Humidity: 58%
+2025-07-07 19:17:03 - Lincoln: 88°F, clear sky, Humidity: 58%
+2025-07-07 19:18:22 - Lincoln: 88°F, clear sky, Humidity: 58%
+2025-07-08 19:31:31 - Lincoln: 86°F, clear sky, Humidity: 58%
+2025-07-08 19:50:26 - Lincoln: 85°F, clear sky, Humidity: 58%
+2025-07-08 19:50:38 - Omaha: 85°F, few clouds, Humidity: 60%
+2025-07-08 19:50:50 - Omaha: 85°F, few clouds, Humidity: 60%
+2025-07-08 19:53:51 - Omaha: 84°F, few clouds, Humidity: 62%
+2025-07-08 19:54:46 - Omaha: 84°F, few clouds, Humidity: 62%
+2025-07-09 17:49:45 - Omaha: 90°F, broken clouds, Humidity: 65%
+2025-07-09 17:50:09 - Omaha: 90°F, broken clouds, Humidity: 65%
+2025-07-09 17:51:10 - Omaha: 89°F, broken clouds, Humidity: 65%
+2025-07-10 17:33:36 - Omaha: 87°F, broken clouds, Humidity: 59%
+2025-07-10 17:39:56 - Omaha: 89°F, broken clouds, Humidity: 60%
+2025-07-10 17:40:48 - Omaha: 89°F, broken clouds, Humidity: 60%
+2025-07-10 17:41:57 - Omaha: 89°F, broken clouds, Humidity: 60%
+2025-07-10 17:42:39 - Omaha: 89°F, broken clouds, Humidity: 60%
+2025-07-10 17:45:28 - Omaha: 89°F, broken clouds, Humidity: 60%
+2025-07-10 17:46:29 - Omaha: 89°F, broken clouds, Humidity: 60%
+2025-07-10 17:47:26 - Omaha: 89°F, broken clouds, Humidity: 60%
+2025-07-10 17:48:24 - Omaha: 89°F, broken clouds, Humidity: 60%
+2025-07-10 17:51:36 - Omaha: 90°F, broken clouds, Humidity: 56%
+2025-07-10 17:52:30 - Omaha: 90°F, broken clouds, Humidity: 56%
+2025-07-10 17:52:45 - Omaha: 90°F, broken clouds, Humidity: 56%
+2025-07-10 17:53:00 - Omaha: 90°F, broken clouds, Humidity: 56%
+2025-07-10 18:02:58 - Omaha: 90°F, broken clouds, Humidity: 57%
+2025-07-10 18:17:58 - Omaha: 90°F, broken clouds, Humidity: 58%
+2025-07-10 18:18:36 - Omaha: 90°F, broken clouds, Humidity: 58%
+2025-07-10 18:18:41 - Lincoln: 88°F, clear sky, Humidity: 62%
+2025-07-10 18:19:00 - burger: 56°F, few clouds, Humidity: 78%
+2025-07-10 18:19:10 - banana: 56°F, clear sky, Humidity: 42%
+2025-07-10 18:19:50 - New York: 80°F, clear sky, Humidity: 71%
+2025-07-10 18:29:28 - Omaha: 88°F, broken clouds, Humidity: 64%
+2025-07-10 18:29:40 - Omaha: 88°F, broken clouds, Humidity: 64%
+2025-07-10 18:29:47 - lincoln: 88°F, clear sky, Humidity: 62%
+2025-07-10 18:30:38 - Omaha: 88°F, broken clouds, Humidity: 64%
+2025-07-10 18:30:43 - Bismark: 60°F, scattered clouds, Humidity: 72%
+2025-07-10 18:30:43 - Bismark: 60°F, scattered clouds, Humidity: 72%
+2025-07-10 20:02:12 - Omaha: 85°F, broken clouds, Humidity: 74%
+2025-07-10 20:04:11 - Omaha: 85°F, broken clouds, Humidity: 74%
+2025-07-13 15:24:53 - Omaha: 84°F, haze, Humidity: 51%

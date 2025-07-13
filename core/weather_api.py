@@ -20,11 +20,17 @@ class WeatherAPI:
         # Build the complete URL for the API request
         api_url = f"{self.api_base_url}?q={city_name}&appid={self.api_key}&units=imperial"
         
+        # Debug: Check if API key is loaded properly
+        if not self.api_key:
+            raise ValueError("API key not found. Please check your .env file.")
+        
         # Make the request to the API (this might fail if no internet)
         response = requests.get(api_url) 
         
         # Check if the request was successful
-        if response.status_code == 404:
+        if response.status_code == 401:
+            raise requests.exceptions.RequestException("Invalid API key. Please check your OpenWeatherMap API key.")
+        elif response.status_code == 404:
             raise KeyError("City not found")
         elif response.status_code != 200:
             raise requests.exceptions.RequestException(f"API returned status {response.status_code}")
