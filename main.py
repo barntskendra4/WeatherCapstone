@@ -5,8 +5,9 @@ import json
 import os
 import requests
 from config import WEATHER_API_KEY, DEFAULT_CITY, WINDOW_WIDTH, WINDOW_HEIGHT, DEFAULT_THEME
-from core.weather_api import WeatherAPI
+from core.weather_api import WeatherAPI, WeatherAPIError
 from features.city_comparison import CityComparison
+from features.forecast_predict import ForecastPredict
 
 # Set the appearance mode and color theme
 ctk.set_appearance_mode("Light")  # Modes: "System", "Dark", "Light"
@@ -15,9 +16,16 @@ class WeatherDashboard:
     """Main application controller with customTkinter GUI"""
     
     def __init__(self):
-        self.api = WeatherAPI(WEATHER_API_KEY)
+        try:
+            self.api = WeatherAPI(WEATHER_API_KEY)
+        except WeatherAPIError as e:
+            # Show error message and exit gracefully
+            messagebox.showerror("API Configuration Error", str(e))
+            return
+        
         self.root = ctk.CTk()
         self.city_comparison = CityComparison(self.api)
+        self.forecast_predict = ForecastPredict(self.api)
         
         # Load user preferences
         self.preferences = self.load_preferences()
@@ -205,6 +213,10 @@ class WeatherDashboard:
         self.tabview.add("City Comparison")
         self.create_city_comparison_tab(self.tabview.tab("City Comparison"))
         
+        # Weather Forecast Tab
+        self.tabview.add("Weather Forecast")
+        self.create_forecast_tab(self.tabview.tab("Weather Forecast"))
+        
         # History Tab
         self.tabview.add("Weather History")
         self.create_history_tab(self.tabview.tab("Weather History"))
@@ -293,6 +305,60 @@ class WeatherDashboard:
         # Load and display history
         self.load_weather_history()
     
+    def create_forecast_tab(self, parent):
+        """Create the weather forecast interface"""
+        forecast_frame = ctk.CTkFrame(parent)
+        forecast_frame.pack(fill="both", expand=True, padx=20, pady=20)
+        
+        # Title
+        ctk.CTkLabel(forecast_frame, text="Weather Forecast", 
+                    font=ctk.CTkFont(size=18, weight="bold")).pack(pady=(10, 15))
+        
+        # Input section
+        input_frame = ctk.CTkFrame(forecast_frame)
+        input_frame.pack(fill="x", padx=20, pady=(0, 15))
+        
+        input_container = ctk.CTkFrame(input_frame)
+        input_container.pack(pady=15)
+        
+        # City input
+        ctk.CTkLabel(input_container, text="City:", 
+                    font=ctk.CTkFont(size=14, weight="bold")).pack(side="left", padx=(20, 10))
+        
+        self.forecast_city_entry = ctk.CTkEntry(input_container, placeholder_text="Enter city name...", 
+                                              width=200, font=ctk.CTkFont(size=14))
+        self.forecast_city_entry.pack(side="left", padx=(0, 15))
+        self.forecast_city_entry.bind('<Return>', lambda e: self.get_forecast())
+        
+        # Buttons container
+        button_frame = ctk.CTkFrame(input_container)
+        button_frame.pack(side="left", padx=(15, 20))
+        
+        # 5-day forecast button
+        forecast_btn = ctk.CTkButton(button_frame, text="📅 5-Day Forecast", 
+                                   command=self.get_forecast, width=140, height=32,
+                                   font=ctk.CTkFont(size=13, weight="bold"))
+        forecast_btn.pack(side="left", padx=(0, 10))
+        
+        # Weather trends button
+        trends_btn = ctk.CTkButton(button_frame, text="📈 Weather Trends", 
+                                 command=self.get_weather_trends, width=140, height=32,
+                                 font=ctk.CTkFont(size=13, weight="bold"))
+        trends_btn.pack(side="left")
+        
+        # Results section
+        results_frame = ctk.CTkFrame(forecast_frame)
+        results_frame.pack(fill="both", expand=True, padx=20, pady=(0, 20))
+        
+        ctk.CTkLabel(results_frame, text="Forecast Results", 
+                    font=ctk.CTkFont(size=14, weight="bold")).pack(pady=(15, 10))
+        
+        # Results display
+        self.forecast_textbox = ctk.CTkTextbox(results_frame, font=ctk.CTkFont(size=11))
+        self.forecast_textbox.pack(fill="both", expand=True, padx=20, pady=(0, 20))
+        self.forecast_textbox.insert("0.0", "Enter a city name above and click '5-Day Forecast' to see detailed weather predictions, or click 'Weather Trends' for analysis.")
+    
+    
     def create_settings_tab(self, parent):
         """Create the settings interface as a tab"""
         settings_frame = ctk.CTkFrame(parent)
@@ -374,18 +440,18 @@ class WeatherDashboard:
             
             self.status_label.configure(text=f"Weather updated for {city}")
             
-        except KeyError:
-            messagebox.showerror("Error", f"City '{city}' not found. Please check the spelling.")
+        except KeyError as e:
+            messagebox.showerror("Error", str(e))
             self.status_label.configure(text="City not found")
+        except WeatherAPIError as e:
+            messagebox.showerror("API Error", str(e))
+            self.status_label.configure(text="API error")
         except ValueError as e:
             messagebox.showerror("Configuration Error", str(e))
             self.status_label.configure(text="Configuration error")
         except requests.exceptions.RequestException as e:
-            if "Invalid API key" in str(e):
-                messagebox.showerror("API Error", "Invalid API key. Please check your OpenWeatherMap API key in the .env file.")
-            else:
-                messagebox.showerror("Network Error", f"Failed to get weather data: {str(e)}")
-            self.status_label.configure(text="Error getting weather data")
+            messagebox.showerror("Network Error", f"Network error: {str(e)}")
+            self.status_label.configure(text="Network error")
         except Exception as e:
             messagebox.showerror("Error", f"Unexpected error: {str(e)}")
             self.status_label.configure(text="Unexpected error")
@@ -408,9 +474,68 @@ class WeatherDashboard:
             
             self.status_label.configure(text=f"Compared {city1} and {city2}")
             
+        except KeyError as e:
+            messagebox.showerror("Error", str(e))
+            self.status_label.configure(text="City not found")
+        except WeatherAPIError as e:
+            messagebox.showerror("API Error", str(e))
+            self.status_label.configure(text="API error")
         except Exception as e:
             messagebox.showerror("Error", f"Failed to compare cities: {str(e)}")
             self.status_label.configure(text="Error comparing cities")
+    
+    def get_forecast(self):
+        """Get 5-day weather forecast for a city"""
+        city = self.forecast_city_entry.get().strip()
+        
+        if not city:
+            messagebox.showwarning("Warning", "Please enter a city name")
+            return
+        
+        try:
+            self.status_label.configure(text=f"Getting 5-day forecast for {city}...")
+            self.root.update()
+            
+            forecast_result = self.forecast_predict.get_5_day_forecast(city)
+            
+            self.forecast_textbox.delete("0.0", "end")
+            self.forecast_textbox.insert("0.0", forecast_result)
+            
+            self.status_label.configure(text=f"5-day forecast for {city}")
+            
+        except WeatherAPIError as e:
+            messagebox.showerror("API Error", str(e))
+            self.status_label.configure(text="API error")
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to get forecast: {str(e)}")
+            self.status_label.configure(text="Error getting forecast")
+    
+    def get_weather_trends(self):
+        """Get weather trends and analysis for a city"""
+        city = self.forecast_city_entry.get().strip()
+        
+        if not city:
+            messagebox.showwarning("Warning", "Please enter a city name")
+            return
+        
+        try:
+            self.status_label.configure(text=f"Analyzing weather trends for {city}...")
+            self.root.update()
+            
+            trends_result = self.forecast_predict.analyze_weather_trends(city)
+            
+            self.forecast_textbox.delete("0.0", "end")
+            self.forecast_textbox.insert("0.0", trends_result)
+            
+            self.status_label.configure(text=f"Weather trends analyzed for {city}")
+            
+        except WeatherAPIError as e:
+            messagebox.showerror("API Error", str(e))
+            self.status_label.configure(text="API error")
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to analyze trends: {str(e)}")
+            self.status_label.configure(text="Error analyzing trends")
+    
     
     def on_theme_toggle(self):
         """Handle theme toggle switch change"""
@@ -505,8 +630,18 @@ class WeatherDashboard:
     
     def run(self):
         """Start the application"""
-        self.root.mainloop()
+        # Check if initialization was successful (API key validation)
+        if hasattr(self, 'root') and self.root:
+            self.root.mainloop()
+        else:
+            # API initialization failed, don't start the app
+            print("Application failed to initialize due to API configuration error.")
 
 if __name__ == "__main__":
-    weather_app = WeatherDashboard()
-    weather_app.run()
+    try:
+        weather_app = WeatherDashboard()
+        weather_app.run()
+    except WeatherAPIError as e:
+        print(f"Failed to start application: {e}")
+    except Exception as e:
+        print(f"Unexpected error starting application: {e}")

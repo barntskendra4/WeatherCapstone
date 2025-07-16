@@ -1,4 +1,5 @@
 from datetime import datetime
+from core.weather_api import WeatherAPIError
 
 class CityComparison:
     """Handles comparison between cities"""
@@ -18,8 +19,11 @@ class CityComparison:
             
             return comparison_result
             
+        except (KeyError, WeatherAPIError):
+            # Re-raise these specific exceptions
+            raise
         except Exception as e:
-            return f"Error comparing cities: {str(e)}"
+            raise WeatherAPIError(f"Error comparing cities: {str(e)}")
     
     def _format_comparison(self, city1, weather1, city2, weather2):
         """Format the comparison results into a readable string"""
