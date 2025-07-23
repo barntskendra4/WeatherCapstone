@@ -1,0 +1,198 @@
+Date,Time,City,Temperature_F,Description,Humidity_Percent
+2025-05-31,,New York,76,Sunny,
+2025-06-01,,New York,71,Foggy,
+2025-06-02,,Princeton,68,Light Rain,
+2025-06-03,,Princeton,79,Sunny,
+2025-06-04,,Princeton,73,Overcast,
+2025-06-05,,New Brunswick,85,Clear,
+2025-06-06,,New Brunswick,70,Rainy,
+2025-06-07,,New Brunswick,82,Thunderstorms,
+2025-06-08,,New Brunswick,75,Partly Cloudy,
+2025-06-09,,New Brunswick,78,Sunny,
+2025-06-30,18:27:17,New Brunswick,77,overcast clouds,71
+2025-06-30,18:28:14,New Brunswick,77,overcast clouds,71
+2025-06-30,19:03:04,New Brunswick,75,overcast clouds,73
+2025-06-30,19:23:43,Lincoln,83,clear sky,43
+2025-06-30,19:27:16,Denver,79,scattered clouds,46
+2025-06-30,19:33:44,New Brunswick,73,broken clouds,73
+2025-06-30,19:37:30,New Brunswick,73,broken clouds,73
+2025-06-30,19:38:38,New Brunswick,73,broken clouds,73
+2025-06-30,19:41:43,New Brunswick,72,broken clouds,75
+2025-06-30,19:44:45,New Brunswick,72,broken clouds,75
+2025-06-30,19:55:55,New Brunswick,72,broken clouds,76
+2025-06-30,20:00:10,New Brunswick,72,broken clouds,76
+2025-06-30,20:02:18,New Brunswick,72,broken clouds,76
+2025-06-30,20:05:34,New Brunswick,72,broken clouds,76
+2025-06-30,20:06:19,New Brunswick,71,broken clouds,76
+2025-06-30,20:06:41,New Brunswick,71,broken clouds,76
+2025-06-30,20:08:56,New Brunswick,71,broken clouds,76
+2025-07-01,18:48:57,New Brunswick,72,overcast clouds,88
+2025-07-01,18:50:03,miami,83,scattered clouds,82
+2025-07-01,18:54:40,miami,83,scattered clouds,82
+2025-07-02,13:03:40,miami,87,clear sky,74
+2025-07-02,13:05:51,miami,88,clear sky,74
+2025-07-02,13:06:51,miami,88,overcast clouds,72
+2025-07-02,13:11:24,miami,88,overcast clouds,72
+2025-07-02,13:12:28,miami,88,overcast clouds,72
+2025-07-02,13:22:22,miami,89,overcast clouds,71
+2025-07-02,13:53:33,miami,88,overcast clouds,71
+2025-07-02,13:55:19,miami,88,overcast clouds,71
+2025-07-02,13:56:41,miami,87,overcast clouds,73
+2025-07-02,14:00:23,miami,87,overcast clouds,73
+2025-07-02,14:01:43,miami,87,overcast clouds,73
+2025-07-02,14:02:28,miami,87,overcast clouds,73
+2025-07-02,14:05:22,miami,87,overcast clouds,73
+2025-07-02,14:05:47,miami,87,overcast clouds,73
+2025-07-02,17:33:26,miami,85,overcast clouds,83
+2025-07-02,17:43:41,miami,84,overcast clouds,83
+2025-07-02,17:43:53,miami,84,overcast clouds,83
+2025-07-02,17:47:04,miami,84,overcast clouds,83
+2025-07-02,17:47:30,Lincoln,92,clear sky,46
+2025-07-02,17:48:10,Omaha,88,few clouds,67
+2025-07-02,17:51:53,miami,84,overcast clouds,83
+2025-07-02,17:52:13,miami,84,overcast clouds,83
+2025-07-02,17:57:00,miami,84,overcast clouds,82
+2025-07-02,17:59:03,miami,84,overcast clouds,83
+2025-07-02,17:59:55,Lincoln,93,clear sky,46
+2025-07-02,18:00:08,Lincoln,93,clear sky,46
+2025-07-02,18:00:23,Lincoln,93,clear sky,46
+2025-07-02,18:00:40,Lincoln,93,clear sky,46
+2025-07-02,18:19:13,Lincoln,92,clear sky,46
+2025-07-02,18:20:01,Lincoln,92,clear sky,46
+2025-07-02,18:34:14,Lincoln,92,clear sky,46
+2025-07-02,18:35:20,Lincoln,92,clear sky,46
+2025-07-02,18:36:02,Lincoln,92,clear sky,46
+2025-07-02,18:44:26,Lincoln,92,clear sky,47
+2025-07-02,18:45:07,Lincoln,92,clear sky,47
+2025-07-02,18:46:33,Lincoln,92,clear sky,47
+2025-07-02,18:47:24,Lincoln,92,clear sky,47
+2025-07-02,18:50:04,Lincoln,92,clear sky,47
+2025-07-02,18:50:39,Lincoln,92,clear sky,47
+2025-07-02,18:50:55,Lincoln,92,clear sky,47
+2025-07-02,18:51:16,Lincoln,92,clear sky,47
+2025-07-02,18:52:13,Lincoln,92,clear sky,47
+2025-07-02,18:52:42,Lincoln,92,clear sky,47
+2025-07-02,19:17:33,Lincoln,91,clear sky,47
+2025-07-02,19:21:32,Lincoln,91,clear sky,48
+2025-07-02,19:23:07,Lincoln,91,clear sky,48
+2025-07-02,19:23:52,Lincoln,91,clear sky,48
+2025-07-02,20:20:34,Lincoln,89,clear sky,52
+2025-07-07,17:08:38,Lincoln,88,clear sky,65
+2025-07-07,17:12:58,Lincoln,89,clear sky,58
+2025-07-07,17:14:41,Lincoln,89,clear sky,58
+2025-07-07,17:15:01,Lincoln,89,clear sky,58
+2025-07-07,17:48:46,Lincoln,89,clear sky,63
+2025-07-07,17:48:58,Lincoln,89,clear sky,63
+2025-07-07,17:49:31,Lincoln,89,clear sky,63
+2025-07-07,17:57:39,Lincoln,89,clear sky,57
+2025-07-07,18:01:21,Lincoln,88,clear sky,57
+2025-07-07,18:09:10,Lincoln,89,clear sky,57
+2025-07-07,19:14:02,Lincoln,88,clear sky,58
+2025-07-07,19:17:03,Lincoln,88,clear sky,58
+2025-07-07,19:18:22,Lincoln,88,clear sky,58
+2025-07-08,19:31:31,Lincoln,86,clear sky,58
+2025-07-08,19:50:26,Lincoln,85,clear sky,58
+2025-07-08,19:50:38,Omaha,85,few clouds,60
+2025-07-08,19:50:50,Omaha,85,few clouds,60
+2025-07-08,19:53:51,Omaha,84,few clouds,62
+2025-07-08,19:54:46,Omaha,84,few clouds,62
+2025-07-09,17:49:45,Omaha,90,broken clouds,65
+2025-07-09,17:50:09,Omaha,90,broken clouds,65
+2025-07-09,17:51:10,Omaha,89,broken clouds,65
+2025-07-10,17:33:36,Omaha,87,broken clouds,59
+2025-07-10,17:39:56,Omaha,89,broken clouds,60
+2025-07-10,17:40:48,Omaha,89,broken clouds,60
+2025-07-10,17:41:57,Omaha,89,broken clouds,60
+2025-07-10,17:42:39,Omaha,89,broken clouds,60
+2025-07-10,17:45:28,Omaha,89,broken clouds,60
+2025-07-10,17:46:29,Omaha,89,broken clouds,60
+2025-07-10,17:47:26,Omaha,89,broken clouds,60
+2025-07-10,17:48:24,Omaha,89,broken clouds,60
+2025-07-10,17:51:36,Omaha,90,broken clouds,56
+2025-07-10,17:52:30,Omaha,90,broken clouds,56
+2025-07-10,17:52:45,Omaha,90,broken clouds,56
+2025-07-10,17:53:00,Omaha,90,broken clouds,56
+2025-07-10,18:02:58,Omaha,90,broken clouds,57
+2025-07-10,18:17:58,Omaha,90,broken clouds,58
+2025-07-10,18:18:36,Omaha,90,broken clouds,58
+2025-07-10,18:18:41,Lincoln,88,clear sky,62
+2025-07-10,18:19:00,burger,56,few clouds,78
+2025-07-10,18:19:10,banana,56,clear sky,42
+2025-07-10,18:19:50,New York,80,clear sky,71
+2025-07-10,18:29:28,Omaha,88,broken clouds,64
+2025-07-10,18:29:40,Omaha,88,broken clouds,64
+2025-07-10,18:29:47,lincoln,88,clear sky,62
+2025-07-10,18:30:38,Omaha,88,broken clouds,64
+2025-07-10,18:30:43,Bismark,60,scattered clouds,72
+2025-07-10,20:02:12,Omaha,85,broken clouds,74
+2025-07-10,20:04:11,Omaha,85,broken clouds,74
+2025-07-13,15:24:53,Omaha,84,haze,51
+2025-07-13,16:25:05,Omaha,86,clear sky,50
+2025-07-13,16:25:44,Miami,87,broken clouds,76
+2025-07-13,16:26:45,Miami,87,broken clouds,76
+2025-07-15,18:57:05,Miami,83,broken clouds,78
+2025-07-15,19:48:21,Miami,82,broken clouds,80
+2025-07-15,19:49:01,Lincoln,89,clear sky,57
+2025-07-15,19:49:15,Burger,57,light rain,93
+2025-07-15,19:49:27,Banana,70,clear sky,51
+2025-07-15,20:15:55,Miami,82,broken clouds,81
+2025-07-15,20:16:01,Miami,82,broken clouds,81
+2025-07-15,20:16:02,Miami,82,broken clouds,81
+2025-07-15,20:16:16,lincoln,88,clear sky,60
+2025-07-15,20:16:35,Miami,82,broken clouds,81
+2025-07-15,20:16:37,Miami,82,broken clouds,81
+2025-07-15,20:16:42,Idaho,79,clear sky,32
+2025-07-15,20:16:52,wyoming,67,broken clouds,51
+2025-07-15,20:17:13,Miami,82,broken clouds,81
+2025-07-15,20:18:20,Miami,82,broken clouds,81
+2025-07-15,20:18:31,orlando,75,thunderstorm,96
+2025-07-15,20:18:58,Miami,82,broken clouds,81
+2025-07-15,20:19:28,Miami,82,broken clouds,81
+2025-07-16,18:17:12,Miami,87,scattered clouds,76
+2025-07-16,18:17:38,Miami,87,scattered clouds,76
+2025-07-16,18:17:40,Miami,87,scattered clouds,76
+2025-07-16,18:17:45,lincoln,77,broken clouds,75
+2025-07-16,18:20:22,Miami,86,scattered clouds,76
+2025-07-16,18:20:26,omaha,76,broken clouds,75
+2025-07-17,17:46:25,Miami,87,overcast clouds,77
+2025-07-17,17:47:52,Miami,87,overcast clouds,77
+2025-07-17,18:07:51,Miami,87,broken clouds,77
+2025-07-17,18:09:08,Miami,87,broken clouds,77
+2025-07-20,14:23:36,Miami,91,scattered clouds,66
+2025-07-20,14:23:58,Diller,70,overcast clouds,88
+2025-07-20,15:47:01,Miami,91,scattered clouds,66
+2025-07-20,15:54:50,Miami,91,scattered clouds,66
+2025-07-21,16:39:58,Miami,91,scattered clouds,66
+2025-07-21,16:40:13,"Diller, Nebraska",70,scattered clouds,89
+2025-07-21,16:40:17,"Diller, Nebraska",70,scattered clouds,89
+2025-07-21,16:40:21,Diller,70,scattered clouds,89
+2025-07-21,16:40:29,"Diller, Nebraskaa",70,scattered clouds,89
+2025-07-21,16:40:37,"Diller, Nebrask",70,scattered clouds,89
+2025-07-21,16:40:50,"Diller, banana",70,scattered clouds,89
+2025-07-21,16:41:10,"Yankton, banana",84,broken clouds,84
+2025-07-21,16:41:25,"Yankton, South Dakota",84,broken clouds,84
+2025-07-21,17:33:11,Miami,89,scattered clouds,70
+2025-07-21,18:52:05,Miami,87,scattered clouds,75
+2025-07-21,18:53:17,Lincoln,76,clear sky,73
+2025-07-21,18:59:16,Miami,86,scattered clouds,75
+2025-07-21,19:02:32,Miami,86,scattered clouds,75
+2025-07-21,19:03:42,Miami,86,scattered clouds,75
+2025-07-21,19:05:31,Miami,86,scattered clouds,75
+2025-07-22,17:53:35,Miami,76,mist,83
+2025-07-22,17:54:52,Lincoln,86,clear sky,58
+2025-07-22,17:56:19,Miami,76,mist,83
+2025-07-22,18:03:25,Miami,76,mist,83
+2025-07-22,18:03:31,"Miami, FL",76,mist,87
+2025-07-22,18:03:33,"Miami, FL",76,mist,87
+2025-07-22,18:03:35,"Miami, FL",76,mist,87
+2025-07-22,18:08:50,Miami,76,thunderstorm,87
+2025-07-22,18:12:41,Miami,76,thunderstorm,87
+2025-07-22,18:19:02,Miami,75,thunderstorm,91
+2025-07-22,19:41:38,Miami,75,thunderstorm,90
+2025-07-22,19:41:50,Hawaii,86,overcast clouds,63
+2025-07-22,19:47:18,Miami,75,thunderstorm,90
+2025-07-22,19:52:12,Miami,75,thunderstorm,90
+2025-07-22,19:56:59,Miami,75,thunderstorm,90
+2025-07-22,20:12:01,Miami,75,overcast clouds,90
+2025-07-22,20:26:24,Miami,75,overcast clouds,90
+2025-07-22,20:29:09,"Diller, NE",86,scattered clouds,73

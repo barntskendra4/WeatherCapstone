@@ -1,5 +1,5 @@
 import requests
-from datetime import datetime, timedelta
+from datetime import datetime
 from core.weather_api import WeatherAPIError
 
 class ForecastPredict:
@@ -9,14 +9,27 @@ class ForecastPredict:
         self.api = weather_api
         self.forecast_url = "https://api.openweathermap.org/data/2.5/forecast"
     
-    def get_5_day_forecast(self, city):
-        """Get 5-day weather forecast for a city"""
+    def get_5_day_forecast(self, city, state=None):
+        """Get 5-day weather forecast for a city with optional state parameter
+        
+        Args:
+            city (str): The city name for the weather forecast
+            state (str, optional): The state/region abbreviation (e.g., 'CA', 'TX')
+        
+        Returns:
+            str: Formatted 5-day weather forecast text
+        """
         try:
             # Validate API key first
             if not self.api.api_key:
                 raise WeatherAPIError("API key not configured properly")
+
+            # Build location query with optional state parameter
+            location_query = city
+            if state:
+                location_query = f"{city},{state}"
             
-            url = f"{self.forecast_url}?q={city}&appid={self.api.api_key}&units=imperial"
+            url = f"{self.forecast_url}?q={location_query}&appid={self.api.api_key}&units=imperial"
             
             try:
                 response = requests.get(url, timeout=10)
@@ -33,6 +46,7 @@ class ForecastPredict:
                 raise WeatherAPIError(f"Forecast API returned status {response.status_code}")
             
             forecast_data = response.json()
+            
             return self._process_forecast_data(forecast_data)
             
         except (KeyError, WeatherAPIError):
@@ -103,36 +117,3 @@ class ForecastPredict:
             result += "\n"
         
         return result
-    
-    def analyze_weather_trends(self, city):
-        """Analyze weather trends and provide insights"""
-        try:
-            # Get current weather
-            current = self.api.get_weather_from_api(city)
-            
-            # Get forecast
-            forecast_data = self.get_5_day_forecast(city)
-            
-            # Simple trend analysis (this could be expanded)
-            result = f"Weather Trend Analysis for {city}\n"
-            result += "=" * 40 + "\n\n"
-            
-            result += f"Current Conditions:\n"
-            result += f"Temperature: {current['temperature']:.0f}°F\n"
-            result += f"Description: {current['description'].title()}\n"
-            result += f"Humidity: {current['humidity']}%\n\n"
-            
-            result += "📈 Trends & Insights:\n"
-            result += "• 5-day forecast shows typical seasonal patterns\n"
-            result += "• Monitor humidity levels for comfort\n"
-            result += "• Check back for updated forecasts\n\n"
-            
-            result += forecast_data
-            
-            return result
-            
-        except (KeyError, WeatherAPIError):
-            # Re-raise these specific exceptions
-            raise
-        except Exception as e:
-            raise WeatherAPIError(f"Error analyzing trends: {str(e)}")

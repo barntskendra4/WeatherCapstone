@@ -55,15 +55,49 @@ class WeatherAPI:
                 "Please check your API key at https://openweathermap.org/api"
             )
     
-    def get_weather_from_api(self, city_name):
-        """Get weather data from OpenWeatherMap API with comprehensive error handling"""
+    def get_weather_from_api(self, city_name, state=None, country=None):
+        """
+        Get weather data from OpenWeatherMap API with comprehensive error handling
+        
+        Args:
+            city_name (str): Name of the city
+            state (str, optional): State code (for US cities) or state name
+            country (str, optional): Country code (ISO 3166-1 alpha-2)
+        
+        Returns:
+            dict: Weather data containing temperature, description, and humidity
+            
+        Examples:
+            get_weather_from_api("Miami")  # Miami (could be any Miami)
+            get_weather_from_api("Miami", "FL")  # Miami, Florida specifically
+            get_weather_from_api("Miami", "Florida")  # Miami, Florida (full state name)
+            get_weather_from_api("Paris", country="FR")  # Paris, France
+        """
         try:
             # Validate inputs
             if not city_name or not city_name.strip():
                 raise ValueError("City name cannot be empty")
             
+            # Build the location query string
+            location_query = city_name.strip()
+            
+            # Add state if provided (works for US locations)
+            if state:
+                state_clean = state.strip()
+                # Handle both state codes (FL) and full names (Florida)
+                location_query += f",{state_clean}"
+                
+                # If state is provided but no country, assume US for better API results
+                if not country:
+                    country = "US"
+            
+            # Add country if provided
+            if country:
+                country_clean = country.strip()
+                location_query += f",{country_clean}"
+            
             # Build the complete URL for the API request
-            api_url = f"{self.api_base_url}?q={city_name.strip()}&appid={self.api_key}&units=imperial"
+            api_url = f"{self.api_base_url}?q={location_query}&appid={self.api_key}&units=imperial"
             
             # Make the request to the API with timeout
             try:
@@ -85,7 +119,7 @@ class WeatherAPI:
                     "3. You have API calls remaining in your plan"
                 )
             elif response.status_code == 404:
-                raise KeyError(f"City '{city_name}' not found. Please check the spelling and try again.")
+                raise KeyError(f"Location '{location_query}' not found. Please check the spelling and try again.")
             elif response.status_code == 429:
                 raise WeatherAPIError(
                     "API rate limit exceeded. Please wait a moment and try again, or upgrade your OpenWeatherMap plan."

@@ -2,7 +2,7 @@ from datetime import datetime
 from core.weather_api import WeatherAPIError
 
 class CityComparison:
-    """Handles comparison between cities"""
+    """Handles comparison between cities with optional state support"""
     
     def __init__(self, weather_api):
         self.api = weather_api
@@ -16,6 +16,28 @@ class CityComparison:
             
             # Format the comparison results
             comparison_result = self._format_comparison(city1, weather1, city2, weather2)
+            
+            return comparison_result
+            
+        except (KeyError, WeatherAPIError):
+            # Re-raise these specific exceptions
+            raise
+        except Exception as e:
+            raise WeatherAPIError(f"Error comparing cities: {str(e)}")
+    
+    def compare_cities_with_states(self, city1, city2, state1=None, state2=None):
+        """Compare weather between two cities with optional state parameters"""
+        try:
+            # Get weather data for both cities with states
+            weather1 = self.api.get_weather_from_api(city1, state1)
+            weather2 = self.api.get_weather_from_api(city2, state2)
+            
+            # Create location display strings
+            location1 = f"{city1}, {state1}" if state1 else city1
+            location2 = f"{city2}, {state2}" if state2 else city2
+            
+            # Format the comparison results
+            comparison_result = self._format_comparison(location1, weather1, location2, weather2)
             
             return comparison_result
             
