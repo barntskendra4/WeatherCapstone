@@ -64,14 +64,6 @@ class WeatherAPI:
             state (str, optional): State code (for US cities) or state name
             country (str, optional): Country code (ISO 3166-1 alpha-2)
         
-        Returns:
-            dict: Weather data containing temperature, description, and humidity
-            
-        Examples:
-            get_weather_from_api("Miami")  # Miami (could be any Miami)
-            get_weather_from_api("Miami", "FL")  # Miami, Florida specifically
-            get_weather_from_api("Miami", "Florida")  # Miami, Florida (full state name)
-            get_weather_from_api("Paris", country="FR")  # Paris, France
         """
         try:
             # Validate inputs

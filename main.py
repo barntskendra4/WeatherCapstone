@@ -1,6 +1,5 @@
 """
 WeatherCap Application Entry Point
-Simplified main.py with separation of concerns implementation
 """
 
 from app_controller import WeatherAppController

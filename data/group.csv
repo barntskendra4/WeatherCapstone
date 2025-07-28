@@ -1,0 +1,11 @@
+contributor_name,city_name,state_code,country_code,latitude,longitude,default_for_testing,notes,date_added,weather_features_tested
+Kendra,Miami,FL,US,25.7617,-80.1918,TRUE,"Primary test city for Florida weather patterns",2025-07-23,"search,forecast,comparison"
+,New York,NY,US,40.7128,-74.0060,FALSE,"Major metropolitan area for comparison",,"search,forecast"
+,Los Angeles,CA,US,34.0522,-118.2437,FALSE,"West coast weather patterns",,"search,comparison"
+,Chicago,IL,US,41.8781,-87.6298,FALSE,"Midwest weather for seasonal testing",,"forecast"
+,Houston,TX,US,29.7604,-95.3698,FALSE,"Gulf coast humidity testing",,"search,comparison"
+,Phoenix,AZ,US,33.4484,-112.0740,FALSE,"Desert climate extreme heat testing",,"forecast"
+,Seattle,WA,US,47.6062,-122.3321,FALSE,"Pacific Northwest rainy weather",,"search"
+,Denver,CO,US,39.7392,-104.9903,FALSE,"Mountain altitude weather patterns",,"forecast,comparison"
+,Boston,MA,US,42.3601,-71.0589,FALSE,"New England seasonal weather",,"search,forecast"
+,Atlanta,GA,US,33.7490,-84.3880,FALSE,"Southeast humid subtropical climate",,"comparison"

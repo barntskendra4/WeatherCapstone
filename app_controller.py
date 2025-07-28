@@ -180,12 +180,6 @@ class WeatherAppController:
     def get_widget(self, widget_name):
         """
         Get a specific widget by name
-        
-        Args:
-            widget_name (str): Name of the widget
-            
-        Returns:
-            The widget instance or None if not found
         """
         return self.widgets.get(widget_name)
     

@@ -42,13 +42,6 @@ class PreferencesManager:
     def save_preferences(self, theme, default_city):
         """
         Save user preferences to file
-        
-        Args:
-            theme (str): Current theme ('light' or 'dark')
-            default_city (str): User's preferred default city
-            
-        Returns:
-            bool: True if saved successfully, False otherwise
         """
         prefs = {
             'theme': theme,
@@ -71,32 +64,18 @@ class PreferencesManager:
     def get_preference(self, key, default=None):
         """
         Get a specific preference value
-        
-        Args:
-            key (str): The preference key
-            default: Default value if key doesn't exist
-            
-        Returns:
-            The preference value or default
         """
         return self.preferences.get(key, default)
     
     def update_preference(self, key, value):
         """
         Update a specific preference in memory (doesn't save to file)
-        
-        Args:
-            key (str): The preference key
-            value: The new value
         """
         self.preferences[key] = value
     
     def get_all_preferences(self):
         """
         Get all current preferences
-        
-        Returns:
-            dict: All current preferences
         """
         return self.preferences.copy()
 
@@ -107,18 +86,12 @@ class ThemeManager:
     def __init__(self, initial_theme='light'):
         """
         Initialize theme manager
-        
-        Args:
-            initial_theme (str): Initial theme ('light' or 'dark')
         """
         self.current_theme = initial_theme
     
     def apply_theme(self, theme):
         """
         Apply the specified theme to the application
-        
-        Args:
-            theme (str): Theme name ('light' or 'dark')
         """
         import customtkinter as ctk
         
@@ -132,9 +105,6 @@ class ThemeManager:
     def toggle_theme(self):
         """
         Toggle between light and dark themes
-        
-        Returns:
-            str: The new theme name
         """
         new_theme = 'dark' if self.current_theme == 'light' else 'light'
         self.apply_theme(new_theme)
@@ -143,8 +113,5 @@ class ThemeManager:
     def get_current_theme(self):
         """
         Get the current theme name
-        
-        Returns:
-            str: Current theme name
         """
         return self.current_theme
