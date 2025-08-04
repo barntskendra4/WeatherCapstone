@@ -266,3 +266,15 @@ Date,Time,City,Temperature_F,Description,Humidity_Percent
 2025-08-03,19:04:53,Diller,76,few clouds,82
 2025-08-03,19:13:46,Diller,76,few clouds,82
 2025-08-03,19:23:38,Diller,76,few clouds,82
+2025-08-03,19:50:59,Diller,77,broken clouds,78
+2025-08-03,19:51:33,Diller,77,broken clouds,78
+2025-08-03,19:52:05,"Lincoln, NE",68,clear sky,80
+2025-08-03,19:52:05,"Lincoln, NE",68,clear sky,80
+2025-08-03,19:52:10,"Lincoln, NE",68,clear sky,80
+2025-08-03,19:52:12,"Lincoln, NE",68,clear sky,80
+2025-08-03,19:52:14,"Lincoln, NE",68,clear sky,80
+2025-08-03,19:52:51,"Diller, NE",69,overcast clouds,75
+2025-08-03,19:53:03,"Lincoln, NE",68,clear sky,80
+2025-08-03,19:54:11,"Beatrice, NE",70,scattered clouds,83
+2025-08-03,19:55:22,"Marysville, KS",68,clear sky,73
+2025-08-03,19:55:33,Marysville,69,overcast clouds,69

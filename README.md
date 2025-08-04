@@ -2,10 +2,6 @@
 
 A modern, comprehensive weather dashboard application built with Python and CustomTkinter. WeatherCap provides real-time weather information with an intuitive interface, featuring city comparisons, forecasts, CSV data analysis, and customizable themes.
 
-## Screenshot
-
-<!-- add a screenshot of the application here -->
-
 ## 🌤️ Features
 
 ### Core Features
