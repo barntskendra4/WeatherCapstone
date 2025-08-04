@@ -2,6 +2,8 @@ import os
 import requests
 from dotenv import load_dotenv
 import re
+from datetime import datetime, timedelta
+import time
 
 # Load environment variables from .env file
 load_dotenv()
@@ -154,6 +156,116 @@ class WeatherAPI:
         except WeatherAPIError:
             # Re-raise our custom exceptions
             raise
+        except Exception as e:
+            # Catch any other unexpected errors
+            raise WeatherAPIError(f"Unexpected error occurred: {str(e)}")
+    
+    def get_recent_weather_data(self, city_name, days=5, state=None, country=None):
+        """
+        Get weather data for the last several days (simulated for comparison)
+        
+        Note: OpenWeatherMap free tier doesn't provide historical data,
+        so this creates simulated historical data based on current weather
+        with realistic variations for demonstration purposes.
+        
+        Args:
+            city_name (str): Name of the city
+            days (int): Number of days of data to generate (default 5)
+            state (str, optional): State code or name
+            country (str, optional): Country code
+            
+        Returns:
+            list: List of weather data dictionaries with timestamps
+        """
+        try:
+            # Get current weather as base
+            current_weather = self.get_weather_from_api(city_name, state, country)
+            base_temp = current_weather['temperature']
+            
+            recent_data = []
+            
+            # Generate data for the last 'days' days
+            for day_offset in range(days):
+                # Calculate date for this day
+                target_date = datetime.now() - timedelta(days=day_offset)
+                
+                # Add realistic temperature variations (±5-15°F from current)
+                import random
+                temp_variation = random.uniform(-15, 15)
+                simulated_temp = base_temp + temp_variation
+                
+                # Simple weather descriptions
+                descriptions = ["clear", "cloudy", "partly cloudy", "overcast"]
+                description = random.choice(descriptions)
+                
+                recent_data.append({
+                    'date': target_date.strftime('%Y-%m-%d'),
+                    'time': target_date.strftime('%H:%M'),
+                    'datetime': target_date,
+                    'temperature': round(simulated_temp, 2),
+                    'city': city_name
+                })
+                
+                # Small delay to avoid overwhelming the API (though we're not actually calling it multiple times)
+                time.sleep(0.1)
+            
+            # Sort by date (oldest first)
+            recent_data.sort(key=lambda x: x['datetime'])
+            
+            return recent_data
+            
+        except Exception as e:
+            raise WeatherAPIError(f"Error generating recent weather data: {str(e)}")
+            
+    def get_weather_forecast(self, city_name, state=None, country=None):
+        """
+        Get 5-day weather forecast from OpenWeatherMap API
+        
+        Args:
+            city_name (str): Name of the city
+            state (str, optional): State code or name  
+            country (str, optional): Country code
+            
+        Returns:
+            list: List of forecast data for the next 5 days
+        """
+        try:
+            # Validate inputs
+            if not city_name or not city_name.strip():
+                raise ValueError("City name cannot be empty")
+            
+            # Build the location query string
+            location_query = city_name.strip()
+            if state:
+                location_query += f",{state.strip()}"
+                if not country:
+                    country = "US"
+            if country:
+                location_query += f",{country.strip()}"
+            
+            # Use forecast API endpoint
+            forecast_url = f"https://api.openweathermap.org/data/2.5/forecast?q={location_query}&appid={self.api_key}&units=imperial"
+            
+            response = requests.get(forecast_url, timeout=10)
+            
+            if response.status_code != 200:
+                raise WeatherAPIError(f"Forecast API request failed with status {response.status_code}")
+            
+            forecast_data = response.json()
+            
+            # Process forecast data (5-day forecast with 3-hour intervals)
+            forecast_list = []
+            for item in forecast_data.get('list', [])[:40]:  # 5 days × 8 intervals per day
+                forecast_list.append({
+                    'datetime': datetime.fromtimestamp(item['dt']),
+                    'temperature': item['main']['temp'],
+                    'humidity': item['main']['humidity'],
+                    'description': item['weather'][0]['description'],
+                    'city': city_name
+                })
+            
+            return forecast_list
+            
         except Exception as e:
             # Catch any other unexpected errors
             raise WeatherAPIError(f"Unexpected error occurred: {str(e)}")

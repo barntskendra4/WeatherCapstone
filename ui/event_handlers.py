@@ -1,8 +1,14 @@
-from tkinter import messagebox
+from tkinter import messagebox, filedialog
 from datetime import datetime
 import requests
+import os
+import sys
 from core.weather_api import WeatherAPIError
 from utils.state_validator import StateValidator
+
+# Add the features directory to the path to import groupFeature
+current_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(current_dir)
 
 
 class WeatherEventHandlers:
@@ -24,6 +30,30 @@ class WeatherEventHandlers:
     def set_widgets(self, widgets):
         """Set widget references for event handling"""
         self.widgets = widgets
+    
+    def _is_zip_code(self, text):
+        """Check if the input text is a zip code pattern"""
+        import re
+        # Remove any spaces and check patterns
+        clean_text = text.replace(' ', '').replace('-', '')
+        
+        # US 5-digit zip code
+        if re.match(r'^\d{5}$', clean_text):
+            return True
+        
+        # US 9-digit zip code (with or without dash)
+        if re.match(r'^\d{9}$', clean_text) or re.match(r'^\d{5}-\d{4}$', text):
+            return True
+        
+        # Canadian postal code patterns (A1A 1A1 or A1A1A1)
+        if re.match(r'^[A-Za-z]\d[A-Za-z]\s?\d[A-Za-z]\d$', text):
+            return True
+        
+        # UK postal code patterns (basic patterns)
+        if re.match(r'^[A-Za-z]{1,2}\d{1,2}[A-Za-z]?\s?\d[A-Za-z]{2}$', text):
+            return True
+        
+        return False
     
     def bind_events(self):
         """Bind all events to their respective handlers"""
@@ -50,6 +80,13 @@ class WeatherEventHandlers:
         # History events
         self.widgets['recent_btn'].configure(command=self.handle_load_recent_history)
         self.widgets['stats_btn'].configure(command=self.handle_load_history_statistics)
+        
+        # Group feature events
+        self.widgets['csv_comparison_btn'].configure(command=self.handle_csv_comparison_only)
+        self.widgets['live_csv_comparison_btn'].configure(command=self.handle_live_csv_comparison)
+        self.widgets['browse_csv_btn'].configure(command=self.handle_browse_csv_files)
+        self.widgets['use_default_csv_btn'].configure(command=self.handle_use_default_csv)
+        self.widgets['auto_detect_csv_btn'].configure(command=self.handle_auto_detect_csv)
         
         # Settings events
         self.widgets['save_btn'].configure(command=self.handle_save_preferences)
@@ -86,6 +123,11 @@ class WeatherEventHandlers:
         
         if not city:
             messagebox.showwarning("Warning", "Please enter a city name")
+            return
+        
+        # Check if user entered a zip code instead of city name
+        if self._is_zip_code(city):
+            messagebox.showerror("Invalid Input", "Zip codes are not allowed. Please enter a city name instead.")
             return
         
         # Validate state input if provided
@@ -152,6 +194,15 @@ class WeatherEventHandlers:
             messagebox.showwarning("Warning", "Please enter both city names")
             return
         
+        # Check if user entered zip codes instead of city names
+        if self._is_zip_code(city1):
+            messagebox.showerror("Invalid Input", f"Zip codes are not allowed. Please enter a city name instead of '{city1}'.")
+            return
+        
+        if self._is_zip_code(city2):
+            messagebox.showerror("Invalid Input", f"Zip codes are not allowed. Please enter a city name instead of '{city2}'.")
+            return
+        
         # Validate state inputs
         state1 = None
         state2 = None
@@ -198,6 +249,11 @@ class WeatherEventHandlers:
         
         if not city:
             messagebox.showwarning("Warning", "Please enter a city name")
+            return
+        
+        # Check if user entered a zip code instead of city name
+        if self._is_zip_code(city):
+            messagebox.showerror("Invalid Input", "Zip codes are not allowed. Please enter a city name instead.")
             return
         
         # Validate state input if provided
@@ -258,6 +314,463 @@ class WeatherEventHandlers:
         """Handle save preferences requests"""
         # This will be called by the main application
         pass  # Implementation will be provided by main app
+    
+    def handle_csv_comparison_only(self):
+        """Handle CSV comparison only request - groupCsvs only"""
+        try:
+            # Direct implementation to avoid import issues
+            import pandas as pd
+            import matplotlib.pyplot as plt
+            import numpy as np
+            
+            # Always use groupCsvs folder only
+            group_csv_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'data', 'groupCsvs')
+            if not os.path.exists(group_csv_dir):
+                group_csv_dir = "groupCsvs"
+            
+            if os.path.exists(group_csv_dir):
+                csv_files = [os.path.join(group_csv_dir, f) 
+                            for f in os.listdir(group_csv_dir) 
+                            if f.endswith('.csv')]
+                print(f"📁 Using {len(csv_files)} CSV files from groupCsvs folder only")
+            else:
+                self._update_group_status("❌ GroupCSV directory not found.")
+                return
+            
+            self._update_group_status(f"📊 Creating CSV comparison for {len(csv_files)} files...")
+            
+            # Create the plot directly
+            plt.figure(figsize=(14, 8))
+            colors = plt.cm.Set1(np.linspace(0, 1, len(csv_files)))
+            labels = [os.path.basename(f).replace('.csv', '') for f in csv_files]
+            
+            for i, (csv_file, label, color) in enumerate(zip(csv_files, labels, colors)):
+                try:
+                    df = pd.read_csv(csv_file)
+                    
+                    # Create datetime column if needed
+                    if 'DateTime' not in df.columns and 'Date' in df.columns and 'Time' in df.columns:
+                        df['DateTime'] = pd.to_datetime(df['Date'] + ' ' + df['Time'])
+                    
+                    if 'DateTime' in df.columns:
+                        df['DateTime'] = pd.to_datetime(df['DateTime'])
+                        df = df.sort_values('DateTime')
+                        x_data = df['DateTime']
+                    else:
+                        x_data = range(len(df))
+                    
+                    plt.plot(x_data, df['Temperature_F'], marker='o', markersize=4, 
+                            linewidth=2, label=label, color=color, alpha=0.8)
+                    
+                    print(f"✅ Loaded {len(df)} records from {label}")
+                    
+                except Exception as e:
+                    print(f"❌ Error loading {csv_file}: {e}")
+                    continue
+            
+            plt.title("Historical Temperature Data Comparison", fontsize=16, fontweight='bold', pad=20)
+            plt.xlabel("Date/Time", fontsize=12)
+            plt.ylabel("Temperature (°F)", fontsize=12)
+            plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+            plt.grid(True, alpha=0.3)
+            plt.xticks(rotation=45)
+            plt.tight_layout()
+            
+            output_file = "group_csv_comparison.png"
+            plt.savefig(output_file, dpi=300, bbox_inches='tight')
+            plt.show()
+            self._update_group_status("✅ CSV comparison completed successfully!")
+            
+        except Exception as e:
+            self._update_group_status(f"❌ Error during CSV comparison: {str(e)}")
+            print(f"CSV comparison error: {e}")
+    
+    def handle_live_csv_comparison(self):
+        """Handle CSV + Recent temperature comparison - groupCsvs only"""
+        print("CSV + Recent Temps button clicked!")
+        
+        try:
+            # Always use groupCsvs folder, ignore file selection
+            group_csv_dir = "data/groupCsvs/"
+            if not os.path.exists(group_csv_dir):
+                group_csv_dir = "groupCsvs/"
+            
+            if os.path.exists(group_csv_dir):
+                csv_files = [os.path.join(group_csv_dir, f) 
+                            for f in os.listdir(group_csv_dir) 
+                            if f.endswith('.csv')]
+                print(f"📁 Using {len(csv_files)} CSV files from groupCsvs folder")
+            else:
+                print("❌ groupCsvs folder not found")
+                return
+            
+            # Get cities for live data
+            cities_text = self.widgets['live_cities_entry'].get().strip()
+            if cities_text:
+                raw_cities = [city.strip() for city in cities_text.split(',')]
+                # Filter out zip codes and validate cities
+                cities_for_live = []
+                invalid_entries = []
+                
+                for city in raw_cities:
+                    if self._is_zip_code(city):
+                        invalid_entries.append(f"{city} (zip code not allowed)")
+                    elif len(city) > 0:
+                        cities_for_live.append(city)
+                
+                # Show error if zip codes were entered
+                if invalid_entries:
+                    error_msg = "❌ Zip codes not allowed. Please use city names only.\nInvalid entries: " + ", ".join(invalid_entries)
+                    self._update_group_status(error_msg)
+                    print(error_msg)
+                    return
+                
+                # Show error if no valid cities after filtering
+                if not cities_for_live:
+                    error_msg = "❌ No valid city names provided. Please enter city names (not zip codes)."
+                    self._update_group_status(error_msg)
+                    print(error_msg)
+                    return
+            else:
+                cities_for_live = ['Toronto', 'Lincoln', 'Rockland', 'Los Angeles']  # Default cities
+            
+            print(f"🌡️ Comparing groupCsv data with recent temps for: {', '.join(cities_for_live)}")
+            
+            # Use direct implementation instead of external function
+            import pandas as pd
+            import matplotlib.pyplot as plt
+            import numpy as np
+            from core.weather_api import WeatherAPI
+            
+            self._update_group_status(f"🌡️ Creating CSV + recent temperature comparison...")
+            
+            # Create the plot directly
+            plt.figure(figsize=(16, 8))
+            colors = plt.cm.Set1(np.linspace(0, 1, len(csv_files) + 1))
+            labels = [os.path.basename(f).replace('.csv', '') for f in csv_files]
+            
+            # Plot CSV data
+            for i, (csv_file, label, color) in enumerate(zip(csv_files, labels, colors[:-1])):
+                try:
+                    df = pd.read_csv(csv_file)
+                    
+                    # Create datetime column if needed
+                    if 'DateTime' not in df.columns and 'Date' in df.columns and 'Time' in df.columns:
+                        df['DateTime'] = pd.to_datetime(df['Date'] + ' ' + df['Time'])
+                    
+                    if 'DateTime' in df.columns:
+                        df['DateTime'] = pd.to_datetime(df['DateTime'])
+                        df = df.sort_values('DateTime')
+                        x_data = df['DateTime']
+                    else:
+                        x_data = range(len(df))
+                    
+                    plt.plot(x_data, df['Temperature_F'], marker='o', markersize=4, 
+                            linewidth=2, label=f'{label} (Historical)', color=color, alpha=0.8)
+                    
+                    print(f"✅ Loaded {len(df)} records from {label}")
+                    
+                except Exception as e:
+                    print(f"❌ Error loading {csv_file}: {e}")
+                    continue
+            
+            # Add recent weather data
+            try:
+                api = WeatherAPI()
+                
+                # Get recent weather data for each city
+                for city in cities_for_live:
+                    try:
+                        # Get recent weather data (5 days of data points)
+                        recent_data = api.get_recent_weather_data(city, days=5)
+                        
+                        if recent_data:
+                            # Extract datetimes and temperatures
+                            datetimes = [item['datetime'] for item in recent_data]
+                            temps = [item['temperature'] for item in recent_data]
+                            
+                            # Plot recent weather data as a line
+                            plt.plot(datetimes, temps, marker='s', markersize=5, 
+                                    linewidth=2, linestyle='--', alpha=0.7,
+                                    label=f'{city} (Recent Data)')
+                            
+                            print(f"✅ Plotted {len(recent_data)} recent data points for {city}")
+                        else:
+                            print(f"❌ No recent data available for {city}")
+                            
+                    except Exception as e:
+                        print(f"❌ Error getting recent weather for {city}: {e}")
+                        continue
+                        
+            except Exception as e:
+                print(f"Error fetching recent weather: {e}")
+            
+            plt.title("GroupCSV Historical vs Recent Temperature Data", fontsize=16, fontweight='bold', pad=20)
+            plt.xlabel("Date/Time", fontsize=12)
+            plt.ylabel("Temperature (°F)", fontsize=12)
+            plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+            plt.grid(True, alpha=0.3)
+            plt.xticks(rotation=45)
+            plt.tight_layout()
+            
+            output_file = "group_live_csv_comparison.png"
+            plt.savefig(output_file, dpi=300, bbox_inches='tight')
+            plt.show()
+            
+            self._update_group_status("✅ CSV + Recent temperature comparison completed successfully!")
+            print("✅ GroupCSV comparison completed successfully!")
+            
+        except Exception as e:
+            error_msg = f"❌ Error in CSV + Recent Temps comparison: {str(e)}"
+            print(f"DEBUG: Full error details: {e}")
+            import traceback
+            traceback.print_exc()
+            self._update_group_status(error_msg)
+            messagebox.showerror("CSV + Recent Temps Error", error_msg)
+
+    def handle_browse_csv_files(self):
+        """Handle browse CSV files request"""
+        try:
+            filetypes = [("CSV files", "*.csv"), ("All files", "*.*")]
+            files = filedialog.askopenfilenames(
+                title="Select CSV files for comparison",
+                filetypes=filetypes,
+                initialdir=os.path.dirname(os.path.abspath(__file__))
+            )
+            
+            if files:
+                self.selected_csv_files = list(files)
+                file_names = [os.path.basename(f) for f in files]
+                self._update_group_status(f"📂 Selected {len(files)} CSV files:\n" + 
+                                        "\n".join([f"  • {name}" for name in file_names]) +
+                                        "\n\nNow click a comparison button to generate plots.")
+            else:
+                self._update_group_status("ℹ️ No files selected.")
+                
+        except Exception as e:
+            error_msg = f"❌ Error browsing files: {str(e)}"
+            self._update_group_status(error_msg)
+            messagebox.showerror("Browse Error", error_msg)
+    
+    def handle_use_default_csv(self):
+        """Handle use default group CSV files request"""
+        try:
+            # Look for CSV files in the groupCsvs directory
+            csv_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'data', 'groupCsvs')
+            
+            if not os.path.exists(csv_dir):
+                self._update_group_status("❌ Group CSV directory not found. Use 'Browse CSV Files' instead.")
+                return
+            
+            csv_files = []
+            for filename in os.listdir(csv_dir):
+                if filename.endswith('.csv'):
+                    csv_files.append(os.path.join(csv_dir, filename))
+            
+            if csv_files:
+                self.selected_csv_files = csv_files
+                file_names = [os.path.basename(f) for f in csv_files]
+                self._update_group_status(f"📋 Using {len(csv_files)} group CSV files:\n" + 
+                                        "\n".join([f"  • {name}" for name in file_names]) +
+                                        "\n\nNow click a comparison button to generate plots.")
+            else:
+                self._update_group_status("❌ No CSV files found in group directory. Use 'Browse CSV Files' instead.")
+                
+        except Exception as e:
+            error_msg = f"❌ Error loading group CSVs: {str(e)}"
+            self._update_group_status(error_msg)
+            messagebox.showerror("Group CSV Error", error_msg)
+    
+    def handle_auto_detect_csv(self):
+        """Handle auto-detect CSV files request"""
+        try:
+            self._update_group_status("🔍 Auto-detecting CSV files...")
+            
+            # Use auto-detection to find all valid CSV files
+            csv_files = self.auto_detect_csv_files()
+            
+            if csv_files:
+                self.selected_csv_files = csv_files
+                file_names = [os.path.basename(f) for f in csv_files]
+                
+                # Create detailed status message
+                status_msg = f"🔍 Auto-detected {len(csv_files)} valid CSV files:\n"
+                for file in csv_files:
+                    directory = os.path.basename(os.path.dirname(file))
+                    filename = os.path.basename(file)
+                    status_msg += f"  • {filename} (from {directory})\n"
+                
+                status_msg += "\n✅ All files validated for weather data format"
+                status_msg += "\n\nNow click a comparison button to generate plots."
+                
+                self._update_group_status(status_msg)
+                
+                print(f"✅ Auto-detected and selected {len(csv_files)} CSV files")
+                
+            else:
+                error_msg = ("❌ No valid CSV files found with weather data format.\n\n"
+                           "Expected format:\n"
+                           "• Must have 'Temperature_F' column\n"  
+                           "• Must have date/time columns (DateTime, Date+Time, or Date)\n"
+                           "• Must contain numerical temperature data\n\n"
+                           "Searched directories:\n"
+                           "• data/groupCsvs/\n"
+                           "• data/\n"
+                           "• weather_data/\n"
+                           "• csv_files/\n"
+                           "• Root project directory")
+                
+                self._update_group_status(error_msg)
+                messagebox.showwarning("No CSV Files Found", 
+                                     "No valid weather CSV files found. Check the file format requirements.")
+                
+        except Exception as e:
+            error_msg = f"❌ Error during auto-detection: {str(e)}"
+            self._update_group_status(error_msg)
+            messagebox.showerror("Auto-Detection Error", error_msg)
+            print(f"Auto-detection error: {e}")
+    
+    def auto_detect_csv_files(self, directories=None):
+        """
+        Automatically detect CSV files in specified directories with weather data format validation
+        
+        Args:
+            directories (list, optional): List of directories to search. If None, uses default directories.
+            
+        Returns:
+            list: List of valid CSV file paths with weather data
+        """
+        if directories is None:
+            # Default directories to search for CSV files
+            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            directories = [
+                os.path.join(base_dir, 'data', 'groupCsvs'),
+                os.path.join(base_dir, 'data'),
+                os.path.join(base_dir, 'weather_data'),
+                os.path.join(base_dir, 'csv_files'),
+                base_dir  # Also check root directory
+            ]
+        
+        csv_files = []
+        
+        for directory in directories:
+            if not os.path.exists(directory):
+                continue
+                
+            print(f"🔍 Scanning directory: {directory}")
+            
+            for filename in os.listdir(directory):
+                if filename.endswith('.csv'):
+                    filepath = os.path.join(directory, filename)
+                    
+                    # Validate CSV file format
+                    if self._validate_csv_format(filepath):
+                        csv_files.append(filepath)
+                        print(f"✅ Found valid CSV: {filename}")
+                    else:
+                        print(f"⚠️ Skipped invalid CSV format: {filename}")
+        
+        # Sort files for consistent ordering
+        csv_files.sort()
+        
+        print(f"📊 Auto-detected {len(csv_files)} valid CSV files")
+        return csv_files
+    
+    def _validate_csv_format(self, filepath):
+        """
+        Validate that a CSV file has the expected weather data format
+        
+        Args:
+            filepath (str): Path to the CSV file
+            
+        Returns:
+            bool: True if the CSV has valid weather data format
+        """
+        try:
+            import pandas as pd
+            
+            # Read just the first few rows to check format
+            df = pd.read_csv(filepath, nrows=5)
+            
+            # Check for required columns
+            required_columns = ['Temperature_F']
+            has_temp_column = any(col in df.columns for col in required_columns)
+            
+            # Check for datetime columns (various formats supported)
+            datetime_patterns = [
+                'DateTime',
+                ['Date', 'Time'],
+                'Date',
+                'Timestamp'
+            ]
+            
+            has_datetime = False
+            for pattern in datetime_patterns:
+                if isinstance(pattern, list):
+                    # Check if both Date and Time columns exist
+                    if all(col in df.columns for col in pattern):
+                        has_datetime = True
+                        break
+                else:
+                    # Check if single datetime column exists
+                    if pattern in df.columns:
+                        has_datetime = True
+                        break
+            
+            # Must have temperature data and some form of datetime
+            is_valid = has_temp_column and has_datetime
+            
+            if is_valid and len(df) > 0:
+                # Additional check: ensure we can read at least one temperature value
+                try:
+                    temp_col = next(col for col in required_columns if col in df.columns)
+                    pd.to_numeric(df[temp_col].iloc[0])
+                    return True
+                except (ValueError, IndexError):
+                    return False
+            
+            return is_valid
+            
+        except Exception as e:
+            print(f"❌ Error validating {filepath}: {e}")
+            return False
+    
+    def _get_csv_files(self):
+        """Get the currently selected CSV files or auto-detect them"""
+        # First, check if user has manually selected files
+        if hasattr(self, 'selected_csv_files') and self.selected_csv_files:
+            print("📁 Using manually selected CSV files")
+            return self.selected_csv_files
+        
+        # If no manual selection, use auto-detection
+        print("🔍 Auto-detecting CSV files...")
+        csv_files = self.auto_detect_csv_files()
+        
+        if csv_files:
+            print(f"✅ Auto-detected {len(csv_files)} CSV files:")
+            for file in csv_files:
+                print(f"  • {os.path.basename(file)}")
+            return csv_files
+        
+        # Fallback: Try the old method for backwards compatibility
+        print("⚠️ Auto-detection found no files, trying legacy method...")
+        csv_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'data', 'groupCsvs')
+        if os.path.exists(csv_dir):
+            csv_files = []
+            for filename in os.listdir(csv_dir):
+                if filename.endswith('.csv'):
+                    csv_files.append(os.path.join(csv_dir, filename))
+            if csv_files:
+                return csv_files
+        
+        print("❌ No CSV files found")
+        return []
+    
+    def _update_group_status(self, message):
+        """Update the group feature status text"""
+        if 'group_textbox' in self.widgets:
+            self.widgets['group_textbox'].delete("0.0", "end")
+            self.widgets['group_textbox'].insert("0.0", message)
     
     def _save_weather_to_history(self, city, weather_data):
         """

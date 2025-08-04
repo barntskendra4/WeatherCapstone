@@ -79,7 +79,7 @@ class WeatherAppController:
     def _setup_gui(self):
         """Setup the graphical user interface"""
         # Don't set appearance mode here - will be set based on user preferences
-        ctk.set_default_color_theme("data/red.json")  # defaults are "blue", "green", "dark-blue"
+        ctk.set_default_color_theme("data/purple_theme.json")  # defaults are "blue", "green", "dark-blue"
         
         # Create main window
         self.root = ctk.CTk()

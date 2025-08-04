@@ -27,8 +27,10 @@ class ForecastPredict:
             # Build location query with optional state parameter
             location_query = city
             if state:
-                location_query = f"{city},{state}"
+                # For US states, use city,state,US format for better API results
+                location_query = f"{city},{state},US"
             
+            print(f"🌤️ Fetching forecast for location: {location_query}")
             url = f"{self.forecast_url}?q={location_query}&appid={self.api.api_key}&units=imperial"
             
             try:
@@ -41,13 +43,23 @@ class ForecastPredict:
             if response.status_code == 401:
                 raise WeatherAPIError("Invalid API key for forecast service")
             elif response.status_code == 404:
-                raise KeyError("City not found")
+                # Provide more specific error for location not found
+                error_msg = f"Location not found: {location_query}"
+                if state:
+                    error_msg += f"\nTry using just the city name without state, or check the state abbreviation."
+                raise KeyError(error_msg)
             elif response.status_code != 200:
-                raise WeatherAPIError(f"Forecast API returned status {response.status_code}")
+                raise WeatherAPIError(f"Forecast API returned status {response.status_code} for location: {location_query}")
             
             forecast_data = response.json()
             
-            return self._process_forecast_data(forecast_data)
+            # Extract city and country info from response for better display
+            city_info = forecast_data['city']
+            display_location = city_info['name']
+            if 'country' in city_info:
+                display_location += f", {city_info['country']}"
+            
+            return self._process_forecast_data(forecast_data, display_location)
             
         except (KeyError, WeatherAPIError):
             # Re-raise these specific exceptions
@@ -55,10 +67,10 @@ class ForecastPredict:
         except Exception as e:
             raise WeatherAPIError(f"Error getting forecast: {str(e)}")
     
-    def _process_forecast_data(self, data):
+    def _process_forecast_data(self, data, display_location=None):
         """Process raw forecast data into a readable format"""
         forecast_list = data['list']
-        city_name = data['city']['name']
+        city_name = display_location or data['city']['name']
         
         # Group forecasts by day
         daily_forecasts = {}

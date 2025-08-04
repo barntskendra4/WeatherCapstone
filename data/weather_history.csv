@@ -203,3 +203,66 @@ Date,Time,City,Temperature_F,Description,Humidity_Percent
 2025-07-23,19:22:39,Fairbury,89,clear sky,63
 2025-07-23,19:25:42,Fairbury,89,clear sky,63
 2025-07-28,17:26:43,Fairbury,95,clear sky,55
+2025-07-28,17:46:08,Fairbury,95,clear sky,49
+2025-07-28,18:14:00,Fairbury,94,clear sky,57
+2025-07-28,18:19:59,Fairbury,94,clear sky,56
+2025-07-28,18:20:46,Fairbury,94,clear sky,56
+2025-07-28,18:22:32,Fairbury,94,clear sky,56
+2025-07-28,18:25:55,Fairbury,94,clear sky,56
+2025-07-28,18:28:29,Fairbury,94,clear sky,56
+2025-07-28,18:30:09,Fairbury,94,clear sky,53
+2025-07-28,18:31:32,Fairbury,94,clear sky,53
+2025-07-28,18:34:50,Fairbury,93,clear sky,54
+2025-07-28,18:43:19,Fairbury,93,clear sky,54
+2025-07-28,19:11:50,New York,89,clear sky,51
+2025-07-28,20:00:48,New York,86,clear sky,64
+2025-07-28,20:01:37,"Denver, CO",92,overcast clouds,18
+2025-07-29,18:07:50,New York,94,scattered clouds,50
+2025-07-29,18:12:42,New York,94,scattered clouds,50
+2025-07-29,18:25:10,New York,93,scattered clouds,51
+2025-07-29,18:42:53,New York,93,scattered clouds,52
+2025-07-29,19:41:50,New York,91,clear sky,57
+2025-07-29,19:42:25,New York,91,clear sky,57
+2025-07-29,19:42:35,New York,91,clear sky,57
+2025-07-29,20:15:48,New York,90,clear sky,55
+2025-07-30,18:06:29,New York,87,light rain,67
+2025-07-30,18:10:07,New York,86,overcast clouds,67
+2025-07-30,18:13:01,68502,64,light rain,89
+2025-07-30,18:13:16,68512,69,light rain,93
+2025-07-30,18:13:25,68701,68,light rain,94
+2025-07-30,18:13:30,68702,66,clear sky,67
+2025-07-30,18:16:19,New York,85,overcast clouds,68
+2025-07-30,18:19:46,New York,85,overcast clouds,68
+2025-07-30,18:24:51,New York,87,overcast clouds,64
+2025-07-30,18:37:08,New York,86,broken clouds,64
+2025-07-30,18:39:04,New York,84,broken clouds,70
+2025-07-30,18:45:09,Lincoln,77,clear sky,80
+2025-07-30,19:34:01,New York,83,few clouds,73
+2025-07-30,19:54:40,New York,83,few clouds,72
+2025-07-30,19:58:19,New York,83,few clouds,72
+2025-07-30,20:06:17,68502,61,light rain,97
+2025-07-31,18:30:27,New York,72,mist,88
+2025-07-31,19:47:48,New York,71,overcast clouds,85
+2025-07-31,19:50:26,New York,71,overcast clouds,85
+2025-07-31,19:52:40,New York,71,overcast clouds,85
+2025-07-31,19:53:45,New York,71,overcast clouds,85
+2025-07-31,19:55:08,New York,71,overcast clouds,85
+2025-07-31,19:55:36,"Diller, NE",73,overcast clouds,74
+2025-07-31,20:04:11,Diller,75,overcast clouds,86
+2025-07-31,20:07:38,Diller,75,overcast clouds,86
+2025-07-31,20:08:13,Diller,75,overcast clouds,86
+2025-08-03,11:20:14,Diller,75,broken clouds,84
+2025-08-03,11:25:58,Diller,75,broken clouds,842025-08-03,11:36:39,Diller,74,overcast clouds,86
+2025-08-03,11:48:01,Diller,74,overcast clouds,86
+2025-08-03,11:49:57,Diller,74,overcast clouds,86
+2025-08-03,12:23:41,Diller,74,overcast clouds,86
+2025-08-03,12:26:58,Diller,74,overcast clouds,86
+2025-08-03,18:52:25,Diller,76,few clouds,82
+2025-08-03,18:55:51,"Lincoln, NE",69,few clouds,80
+2025-08-03,18:58:04,Diller,76,few clouds,82
+2025-08-03,18:59:37,Diller,76,few clouds,82
+2025-08-03,19:02:04,Diller,76,few clouds,82
+2025-08-03,19:02:52,Diller,76,few clouds,82
+2025-08-03,19:04:53,Diller,76,few clouds,82
+2025-08-03,19:13:46,Diller,76,few clouds,82
+2025-08-03,19:23:38,Diller,76,few clouds,82

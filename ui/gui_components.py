@@ -16,7 +16,33 @@ class WeatherGUIComponents:
         
         Args:
             root: The main CTk root window
-            preferences (dict): User preferences for default values
+            preferences (dict): User preferences        #         initial_message = ("🌤️ Temperature Comparison Tools\n\n"
+                          "📊 CSV Comparison Only: Compare historical temperature data from multiple CSV files\n"
+                          "🌐 CSV + Recent Temps: Combine historical data with recent temperature trends\n\n"
+                          "Instructions:\n"
+                          "1. Enter cities for temperature data (optional)\n"
+                          "2. Choose CSV files or use default group CSVs\n"
+                          "3. Click a comparison button to generate graphs\n\n"
+                          "Supported CSV format: Date, Time, City, Temperature_F\n"
+                          "Generated plots will be saved in the WeatherCap directory.")ssage
+        initial_message = ("🌤️ Temperature Comparison Tools\n\n"
+                          "📊 CSV Comparison Only: Compare historical temperature data from multiple CSV files\n"
+                          "🌐 CSV + Recent Temps: Combine historical data with recent temperature trends\n\n"
+                          "Instructions:\n"
+                          "1. Enter cities for temperature data (optional)\n"
+                          "2. Choose CSV files or use default group CSVs\n"
+                          "3. Click a comparison button to generate graphs\n\n"
+                          "Supported CSV format: Date, Time, City, Temperature_F\n"
+                          "Generated plots will be saved in the WeatherCap directory.")itial_message = ("�️ Temperature Comparison Tools\n\n"
+                          "📊 CSV Comparison Only: Compare historical temperature data from multiple CSV files\n"
+                          "�️ CSV + Recent Temps: Combine historical data with recent temperature trends\n"
+                          "🎬 Run Demo: See a demonstration with sample data\n\n"
+                          "Instructions:\n"
+                          "1. Enter cities for temperature data (optional)\n"
+                          "2. Choose CSV files or use default group CSVs\n"
+                          "3. Click a comparison button to generate graphs\n\n"
+                          "Supported CSV format: Date, Time, City, Temperature_F\n"
+                          "Generated plots will be saved in the WeatherCap directory.")t values
         """
         self.root = root
         self.preferences = preferences
@@ -180,12 +206,14 @@ class WeatherGUIComponents:
         self.widgets['tabview'].add("City Comparison")
         self.widgets['tabview'].add("Weather Forecast")
         self.widgets['tabview'].add("Weather History")
+        self.widgets['tabview'].add("Group Feature")
         self.widgets['tabview'].add("Settings & Preferences")
         
         # Create tab contents
         self._create_city_comparison_tab()
         self._create_forecast_tab()
         self._create_history_tab()
+        self._create_group_feature_tab()
         self._create_settings_tab()
     
     def _create_city_comparison_tab(self):
@@ -394,6 +422,140 @@ class WeatherGUIComponents:
                                         font=ctk.CTkFont(size=12))
         self.widgets['status_label'].pack(pady=8, padx=15, anchor="w")
     
+    def _create_group_feature_tab(self):
+        """Create the group collaboration feature interface with CSV comparison and live weather data"""
+        parent = self.widgets['tabview'].tab("Group Feature")
+        group_frame = ctk.CTkFrame(parent)
+        group_frame.pack(fill="both", expand=True, padx=20, pady=20)
+
+        # Title
+        ctk.CTkLabel(group_frame, text="Temperature Comparison", 
+                    font=ctk.CTkFont(size=18, weight="bold")).pack(pady=(10, 15))
+        
+        # Description
+        description_frame = ctk.CTkFrame(group_frame)
+        description_frame.pack(fill="x", padx=20, pady=(0, 15))
+        
+        description_text = ("Compare historical CSV temperature data with recent temperature trends!\n"
+                          "Load multiple CSV files and compare with recent temperature data.")
+        ctk.CTkLabel(description_frame, text=description_text, 
+                    font=ctk.CTkFont(size=12), wraplength=450).pack(pady=15, padx=20)
+        
+        # Main control section
+        control_section = ctk.CTkFrame(group_frame)
+        control_section.pack(fill="x", padx=20, pady=(0, 15))
+        
+        ctk.CTkLabel(control_section, text="Temperature Data Comparison", 
+                    font=ctk.CTkFont(size=14, weight="bold")).pack(pady=(15, 10))
+        
+        # Control buttons frame
+        buttons_frame = ctk.CTkFrame(control_section)
+        buttons_frame.pack(pady=(0, 15))
+        
+        # CSV Comparison button
+        self.widgets['csv_comparison_btn'] = ctk.CTkButton(
+            buttons_frame, 
+            text="� CSV Comparison Only", 
+            width=160, height=36, 
+            font=ctk.CTkFont(size=12, weight="bold")
+        )
+        self.widgets['csv_comparison_btn'].pack(side="left", padx=(20, 10), pady=10)
+        
+        # Live + CSV Comparison button
+        self.widgets['live_csv_comparison_btn'] = ctk.CTkButton(
+            buttons_frame, 
+            text="�️ CSV + Recent Temps", 
+            width=180, height=36, 
+            font=ctk.CTkFont(size=12, weight="bold")
+        )
+        self.widgets['live_csv_comparison_btn'].pack(side="left", padx=(0, 20), pady=10)
+        
+        # Live cities configuration section
+        config_section = ctk.CTkFrame(group_frame)
+        config_section.pack(fill="x", padx=20, pady=(0, 15))
+        
+        ctk.CTkLabel(config_section, text="Temperature Cities", 
+                    font=ctk.CTkFont(size=14, weight="bold")).pack(pady=(15, 10))
+        
+        # Cities input
+        cities_input_frame = ctk.CTkFrame(config_section)
+        cities_input_frame.pack(pady=(0, 15))
+        
+        ctk.CTkLabel(cities_input_frame, text="Cities for temperature data (comma-separated):", 
+                    font=ctk.CTkFont(size=12)).pack(pady=(10, 5))
+        
+        self.widgets['live_cities_entry'] = ctk.CTkEntry(
+            cities_input_frame, 
+            placeholder_text="Toronto, Lincoln, Rockland, Los Angeles", 
+            width=400, 
+            font=ctk.CTkFont(size=12)
+        )
+        self.widgets['live_cities_entry'].pack(padx=20, pady=(0, 5))
+        
+        # Add note about zip codes
+        ctk.CTkLabel(cities_input_frame, text="Note: Zip codes are not allowed - use city names only", 
+                    font=ctk.CTkFont(size=10, slant="italic"), 
+                    text_color="gray").pack(pady=(0, 15))
+        
+        # File selection section
+        file_section = ctk.CTkFrame(group_frame)
+        file_section.pack(fill="x", padx=20, pady=(0, 15))
+        
+        ctk.CTkLabel(file_section, text="CSV Files Management", 
+                    font=ctk.CTkFont(size=14, weight="bold")).pack(pady=(15, 10))
+        
+        file_buttons_frame = ctk.CTkFrame(file_section)
+        file_buttons_frame.pack(pady=(0, 15))
+        
+        self.widgets['browse_csv_btn'] = ctk.CTkButton(
+            file_buttons_frame, 
+            text="📂 Browse CSV Files", 
+            width=140, height=36, 
+            font=ctk.CTkFont(size=12, weight="bold")
+        )
+        self.widgets['browse_csv_btn'].pack(side="left", padx=(20, 10), pady=10)
+        
+        self.widgets['use_default_csv_btn'] = ctk.CTkButton(
+            file_buttons_frame, 
+            text="📋 Use Group CSVs", 
+            width=140, height=36, 
+            font=ctk.CTkFont(size=12, weight="bold")
+        )
+        self.widgets['use_default_csv_btn'].pack(side="left", padx=(0, 10), pady=10)
+        
+        self.widgets['auto_detect_csv_btn'] = ctk.CTkButton(
+            file_buttons_frame, 
+            text="🔍 Auto-Detect CSVs", 
+            width=140, height=36, 
+            font=ctk.CTkFont(size=12, weight="bold")
+        )
+        self.widgets['auto_detect_csv_btn'].pack(side="left", padx=(0, 20), pady=10)
+        
+        # Results/Display Section
+        results_section = ctk.CTkFrame(group_frame)
+        results_section.pack(fill="both", expand=True, padx=20, pady=(0, 20))
+        
+        ctk.CTkLabel(results_section, text="Results & Status", 
+                    font=ctk.CTkFont(size=14, weight="bold")).pack(pady=(15, 10))
+        
+        # Display area for results
+        self.widgets['group_textbox'] = ctk.CTkTextbox(results_section, font=ctk.CTkFont(size=11))
+        self.widgets['group_textbox'].pack(fill="both", expand=True, padx=20, pady=(0, 20))
+        
+        # Initial message
+        initial_message = ("🌤️ Advanced Weather Comparison Tools\n\n"
+                          "� CSV Comparison Only: Compare historical data from multiple CSV files\n"
+                          "🌐 CSV + Live Weather: Combine historical data with current weather conditions\n"
+                          "🎬 Run Demo: See a demonstration with sample data\n\n"
+                          "Instructions:\n"
+                          "1. Enter cities for live weather data (optional)\n"
+                          "2. Choose CSV files or use default group CSVs\n"
+                          "3. Click a comparison button to generate graphs\n\n"
+                          "Supported CSV format: Date, Time, City, Temperature_F\n"
+                          "Generated plots will be saved in the WeatherCap directory.")
+        self.widgets['group_textbox'].insert("0.0", initial_message)
+
+
     def get_widget(self, widget_name):
         """Get a specific widget by name"""
         return self.widgets.get(widget_name)
