@@ -1,6 +1,6 @@
 # WeatherCap - Weather Dashboard
 
-A modern, comprehensive weather dashboard application built with Python and CustomTkinter. WeatherCap provides real-time weather information with an intuitive interface, featuring city comparisons, forecasts, and customizable themes.
+A modern, comprehensive weather dashboard application built with Python and CustomTkinter. WeatherCap provides real-time weather information with an intuitive interface, featuring city comparisons, forecasts, CSV data analysis, and customizable themes.
 
 ## Screenshot
 
@@ -9,20 +9,29 @@ A modern, comprehensive weather dashboard application built with Python and Cust
 ## 🌤️ Features
 
 ### Core Features
-- **Real-time Weather Data** - Get current weather information for any city worldwide with robust state validation
-- **5-Day Weather Forecasts** - Detailed weather predictions with comprehensive daily forecasts
+- **Real-time Weather Data** - Get current weather information for any city worldwide with robust zip code validation
+- **5-Day Weather Forecasts** - Detailed weather predictions with comprehensive daily forecasts and state input support
 - **City Comparison** - Compare weather between multiple cities side-by-side with detailed analysis
-- **Smart State Validation** - Intelligent handling of US states with abbreviations, full names, and error suggestions
+- **CSV Weather History** - Advanced CSV data processing with historical weather analysis and group comparisons
+- **Smart Input Validation** - Comprehensive zip code validation with intelligent error handling and suggestions
 - **Theme Management** - Toggle between dark/light mode with persistent preferences
-- **Weather History** - Track and view your recent weather searches with statistics
+- **Group Data Analysis** - Compare recent CSV data with live API weather information
 - **User Preferences** - Save your favorite settings, default cities, and theme preferences
+
+### Advanced Features
+- **CSV Group Analysis** - Process multiple CSV files from `data/groupCsvs/` directory for group weather comparisons
+- **Recent Data Focus** - Smart algorithms to find and display the most recent weather data from CSV files
+- **Progressive Time Range Search** - Automatically adjusts search parameters to find available data
+- **Live vs Historical Comparison** - Compare CSV historical data with current live API data
+- **Intelligent File Detection** - Auto-discovery and validation of CSV files in group directories
 
 ### Technical Features
 - **Modular Architecture** - Clean separation of concerns with organized codebase
-- **Error Handling** - Comprehensive input validation and user-friendly error messages  
-- **Data Persistence** - JSON-based settings and history storage
+- **Comprehensive Error Handling** - Advanced input validation with zip code verification and user-friendly error messages  
+- **Multi-format Data Persistence** - JSON-based settings and CSV historical data storage
 - **Responsive Design** - Modern interface that adapts to different window sizes
-- **Status Feedback** - Real-time updates on all operations
+- **Real-time Status Feedback** - Live updates on all operations with detailed progress indicators
+- **Git Integration** - Proper line ending handling with `.gitattributes` configuration
 
 ## 📁 Project Architecture
 
@@ -35,31 +44,38 @@ WeatherCap/
 ├── config.py                  # Configuration and API settings
 ├── .env                       # Environment variables (API key)
 ├── requirements.txt           # Python dependencies
-├── ARCHITECTURE.md            # Detailed architecture documentation
 ├── ui/                        # User Interface Layer
 │   ├── gui_components.py      # UI widget creation and layout
-│   └── event_handlers.py      # User interaction handling
+│   └── event_handlers.py      # User interaction handling with zip code validation
 ├── utils/                     # Utility Modules
 │   ├── preferences_manager.py # User preferences management
-│   └── theme_manager.py       # Theme switching logic
+│   └── state_validator.py     # Input validation and error handling
 ├── features/                  # Feature Modules
-│   ├── city_comparison.py     # City weather comparison
-│   ├── forecast_predict.py    # Weather forecasting (5-day)
-│   └── theme_switcher.py      # Theme management interface
+│   ├── city_comparison.py     # City weather comparison functionality
+│   ├── forecast_predict.py    # Weather forecasting (5-day) with state support
+│   ├── theme_switcher.py      # Theme management interface
+│   └── weather_history_csv.py # CSV data processing and analysis
 ├── core/                      # Core Business Logic
-│   └── weather_api.py         # Weather API communication
+│   └── weather_api.py         # Weather API communication and data handling
 └── data/                      # Data Storage
-    ├── weather_history.txt    # Historical weather searches
+    ├── weather_history.csv    # Historical weather searches and data
     ├── user_preferences.json  # User settings and preferences
     ├── purple_theme.json      # Theme configuration files
-    └── red.json               # Custom theme settings
+    ├── red.json               # Custom theme settings
+    └── groupCsvs/             # Group CSV data directory
+        ├── abil.csv           # Individual weather data files
+        ├── felix.csv          # Historical group weather data
+        ├── kendra.csv         # CSV comparison datasets
+        └── ricky.csv          # Multi-user weather tracking
 ```
 
 ### Architecture Highlights
 - **Separation of Concerns**: UI, business logic, and data management are cleanly separated
 - **Modular Design**: Each feature is self-contained and independently maintainable
 - **Event-Driven Architecture**: Clean separation between UI events and business logic
-- **Data Persistence**: JSON-based storage for preferences and history
+- **Advanced Data Processing**: Multi-format data handling with CSV analysis and JSON persistence
+- **Comprehensive Input Validation**: Zip code verification and intelligent error handling
+- **Git Integration**: Proper version control with line ending normalization
 
 ## 🚀 Getting Started
 
@@ -105,40 +121,47 @@ WeatherCap/
 ## 🎯 Usage
 
 ### Main Dashboard
-- **Search Interface**: Enter city name and optional state for accurate results
-- **Smart State Validation**: Handles US states as abbreviations (FL, CA, TX) or full names (Florida, California, Texas)
-- **Current Weather Display**: Real-time temperature, conditions, and humidity
-- **Theme Toggle**: Switch between light and dark modes with persistent preferences
+- **Search Interface**: Enter city name with comprehensive zip code validation
+- **Smart Input Validation**: Advanced zip code verification with error prevention and helpful suggestions
+- **Current Weather Display**: Real-time temperature, conditions, humidity, and detailed weather information
+- **Theme Toggle**: Switch between light and dark modes with persistent preferences and immediate application
 
 ### Feature Tabs
 
 #### 🏙️ City Comparison
 - Compare weather conditions between two cities simultaneously
-- Side-by-side input layout with intuitive VS design
-- Detailed comparison including temperature differences, humidity, and conditions
-- Optional state specification for cities with common names
+- Side-by-side input layout with intuitive VS design and responsive interface
+- Detailed comparison including temperature differences, humidity, and comprehensive weather conditions
+- Advanced input validation for both city names and zip codes
 
 #### 📅 Weather Forecast  
-- **5-Day Forecast**: Comprehensive daily weather predictions
-- Temperature highs and lows for each day
-- Detailed conditions and weather descriptions
-- Easy-to-read format with date and day information
+- **5-Day Forecast**: Comprehensive daily weather predictions with detailed information
+- **State Input Support**: Proper handling of US states with improved API query formatting
+- Temperature highs and lows for each day with accurate forecasting
+- Detailed conditions and weather descriptions with easy-to-read formatting
+- Enhanced error handling for invalid locations and API responses
 
-#### 📊 Weather History
-- **Recent Searches**: View your last weather lookups
-- **Statistics**: Summary of your weather search patterns
-- Persistent history tracking across sessions
+#### 📊 CSV Weather Analysis
+- **Historical Data Processing**: Advanced CSV file analysis from `data/groupCsvs/` directory
+- **Recent Data Focus**: Smart algorithms to automatically find and display the most recent weather data
+- **Group Comparisons**: Multi-file CSV processing for comprehensive weather analysis
+- **Live vs Historical**: Compare CSV historical data with current live API weather information
+- **Progressive Search**: Intelligent time range adjustment to find available data across different periods
+- **Visual Comparisons**: Generated comparison charts and graphs for data analysis
 
 #### ⚙️ Settings & Preferences
-- **Save Settings**: Store your theme and default city preferences
-- **Application Info**: Version details and feature overview
-- Settings persist across application restarts
+- **Save Settings**: Store your theme preferences, default cities, and user configurations
+- **Input Validation Settings**: Configure zip code validation and error handling preferences
+- **Application Info**: Version details, feature overview, and system information
+- Settings persist across application restarts with reliable JSON storage
 
 ### Smart Features
-- **Error Handling**: Helpful suggestions for invalid state names
-- **Input Validation**: Real-time feedback on search inputs  
-- **Status Updates**: Clear feedback on all operations
-- **Data Persistence**: All preferences and history automatically saved
+- **Advanced Error Handling**: Comprehensive input validation with helpful suggestions for zip codes and city names
+- **Real-time Input Validation**: Immediate feedback on search inputs with zip code verification
+- **Progressive Data Search**: Intelligent algorithms that adjust search parameters to find available CSV data
+- **Multi-format Data Processing**: Seamless handling of both CSV historical data and live API responses
+- **Status Updates**: Clear, real-time feedback on all operations with detailed progress indicators
+- **Data Persistence**: All preferences, history, and CSV data automatically saved and managed
 
 ## 🎨 User Interface
 
@@ -160,20 +183,25 @@ WeatherCap features a modern, professional interface built with CustomTkinter:
 
 ## � Data Management
 
-The application uses JSON-based storage for persistence and reliability:
+The application uses a hybrid storage approach combining JSON and CSV formats for comprehensive data management:
 
 ### Storage Files
-- **user_preferences.json** - Theme settings, default city, and user configurations
-- **weather_history.txt** - Historical weather search data with timestamps  
-- **Theme Configuration** - Custom color schemes and appearance settings
+- **user_preferences.json** - Theme settings, default cities, zip code preferences, and user configurations
+- **weather_history.csv** - Historical weather search data with timestamps and detailed weather information
+- **groupCsvs/ Directory** - Individual CSV files (abil.csv, felix.csv, kendra.csv, ricky.csv) for group weather analysis
+- **Theme Configuration** - Custom color schemes and appearance settings (purple_theme.json, red.json)
 
-### Data Features
-- **Automatic Persistence** - All settings and history saved automatically
-- **Error Recovery** - Graceful handling of corrupted data files
-- **Human-Readable Format** - Easy to backup and transfer user data
-- **Privacy-Focused** - All data stored locally, no external data collection
+### Advanced Data Features
+- **Automatic Persistence** - All settings, history, and CSV data saved automatically with error recovery
+- **Multi-format Processing** - Seamless integration between JSON preferences and CSV weather data
+- **Progressive Data Search** - Smart algorithms to find recent data across different time periods
+- **Group Data Analysis** - Simultaneous processing of multiple CSV files for comparative analysis
+- **Data Validation** - Comprehensive validation for both user inputs and stored data integrity
+- **Error Recovery** - Graceful handling of corrupted data files with automatic backup and restoration
+- **Human-Readable Format** - Easy to backup, transfer, and manually edit user data files
+- **Privacy-Focused** - All data stored locally with no external data collection or transmission
 
-## 🛠️ Development & Architecture
+## �🛠️ Development & Architecture
 
 ### Code Organization
 WeatherCap follows modern software engineering principles:
@@ -185,11 +213,15 @@ WeatherCap follows modern software engineering principles:
 - **Data Persistence** - Reliable storage with automatic backup and recovery
 
 ### Key Components
-- **app_controller.py** - Central application coordinator and state management
-- **ui/gui_components.py** - Pure UI widget creation and layout logic
-- **ui/event_handlers.py** - User interaction processing and event routing
-- **utils/preferences_manager.py** - Settings persistence and configuration management
-- **features/** - Self-contained feature modules for extensibility
+- **app_controller.py** - Central application coordinator and state management with feature integration
+- **ui/gui_components.py** - Pure UI widget creation and layout logic with modern CustomTkinter design
+- **ui/event_handlers.py** - User interaction processing, event routing, and comprehensive zip code validation
+- **utils/preferences_manager.py** - Settings persistence and configuration management with JSON handling
+- **utils/state_validator.py** - Advanced input validation with zip code verification and error handling
+- **features/weather_history_csv.py** - CSV data processing, analysis, and group comparison functionality
+- **features/forecast_predict.py** - 5-day weather forecasting with enhanced state input support
+- **features/city_comparison.py** - Side-by-side city weather comparison with validation
+- **core/weather_api.py** - Weather API communication with enhanced error handling and data processing
 
 ### Development Standards
 - **Type Safety** - Consistent parameter validation and error handling
@@ -207,23 +239,32 @@ Core requirements (see `requirements.txt` for complete list):
 
 ## 🚀 Features in Detail
 
-### State Validation System
-- **Comprehensive Coverage** - Supports all 50 US states plus territories
-- **Multiple Formats** - Accepts abbreviations (FL, CA, TX) and full names
-- **Smart Suggestions** - Provides helpful corrections for invalid inputs
-- **Alias Support** - Handles common alternative names for states
+### Advanced Input Validation System
+- **Comprehensive Zip Code Validation** - Real-time verification of US zip codes with error prevention
+- **Smart Error Handling** - Intelligent suggestions and corrections for invalid inputs
+- **Multi-format Support** - Handles various input formats with automatic normalization
+- **Progressive Validation** - Real-time feedback during user input with immediate error detection
 
-### Weather API Integration  
-- **OpenWeatherMap API** - Reliable, professional weather data source
-- **Rate Limiting** - Efficient API usage with built-in request management
-- **Error Handling** - Graceful handling of network issues and API limits
-- **Data Formatting** - Clean, user-friendly presentation of weather information
+### Enhanced Weather API Integration  
+- **OpenWeatherMap API** - Professional weather data source with reliable, up-to-date information
+- **Enhanced Query Formatting** - Improved API queries with proper state handling (city,state,US format)
+- **Rate Limiting Management** - Efficient API usage with built-in request management and optimization
+- **Comprehensive Error Handling** - Graceful handling of network issues, API limits, and invalid responses
+- **Data Formatting** - Clean, user-friendly presentation of complex weather information
 
-### Theme Management
-- **Dynamic Switching** - Real-time theme changes without restart
-- **Preference Persistence** - Theme choice saved across sessions
-- **Custom Color Schemes** - Professional color palettes for both themes
-- **UI Consistency** - All components properly themed and coordinated
+### Advanced CSV Data Processing
+- **Group File Analysis** - Simultaneous processing of multiple CSV files from `data/groupCsvs/` directory
+- **Recent Data Focus** - Smart algorithms to automatically identify and display the most recent weather data
+- **Progressive Time Range Search** - Intelligent adjustment of search parameters to find available data across different periods
+- **Live vs Historical Comparison** - Comprehensive comparison between CSV historical data and current live API information
+- **Data Validation** - Thorough validation of CSV file structure and content integrity
+
+### Professional Theme Management
+- **Dynamic Theme Switching** - Real-time theme changes without application restart
+- **Persistent Preferences** - Theme choices automatically saved across sessions with reliable storage
+- **Custom Color Schemes** - Professional color palettes optimized for both light and dark themes
+- **UI Consistency** - All components properly themed and coordinated with comprehensive styling
+- **Accessibility Features** - High contrast ratios and readable typography for enhanced user experience
 
 ## 🤝 Contributing
 
@@ -247,14 +288,18 @@ WeatherCap is designed with extensibility in mind. To contribute:
 
 ### Common Issues
 - **API Key Issues** - Ensure your `.env` file contains a valid OpenWeatherMap API key
-- **Network Connectivity** - Check internet connection for weather data retrieval
-- **State Validation** - Use standard state abbreviations (FL, CA, TX) or full names
-- **Theme Problems** - Try toggling themes or restarting the application
+- **Network Connectivity** - Check internet connection for weather data retrieval and API access
+- **Input Validation** - Use valid US zip codes (5-digit format) or proper city names for accurate results
+- **CSV Data Issues** - Ensure CSV files in `data/groupCsvs/` have proper formatting and recent data
+- **Theme Problems** - Try toggling themes or restarting the application if visual issues occur
+- **File Permissions** - Ensure the application has read/write access to the data directory for CSV processing
 
 ### Getting Help
-- Check the `ARCHITECTURE.md` file for detailed technical documentation
-- Review error messages for specific guidance on input formatting
+- Check error messages for specific guidance on input formatting and validation requirements
+- Review CSV file structure in `data/groupCsvs/` for proper data formatting
 - Ensure all dependencies are installed correctly via `pip install -r requirements.txt`
+- Verify `.env` file contains a valid OpenWeatherMap API key
+- Check file permissions for data directory access and CSV processing capabilities
 
 ## 📄 License
 
@@ -273,13 +318,16 @@ This project is open source and available under the MIT License. Created as part
 ## 📊 Project Stats
 
 - **Language**: Python 3.8+
-- **Framework**: CustomTkinter GUI
-- **Architecture**: Modular with separation of concerns  
-- **Testing**: API integration and error handling validation
-- **Storage**: JSON-based persistence with local data management
-- **API**: OpenWeatherMap REST API integration
+- **Framework**: CustomTkinter GUI with modern design
+- **Architecture**: Modular with separation of concerns and advanced data processing
+- **Data Processing**: CSV analysis, JSON persistence, and live API integration
+- **Input Validation**: Comprehensive zip code verification and error handling
+- **Testing**: API integration, CSV processing, and error handling validation
+- **Storage**: Multi-format persistence with CSV and JSON data management
+- **API Integration**: OpenWeatherMap REST API with enhanced query formatting
+- **Version Control**: Git integration with proper line ending handling via `.gitattributes`
 
 **Author**: Kendra Barnts  
 **GitHub**: [@barntskendra4](https://github.com/barntskendra4)  
 **Repository**: [WeatherCapstone](https://github.com/barntskendra4/WeatherCapstone)  
-**Project Type**: Data, Visual, & Interactive Dashboard Application
+**Project Type**: Advanced Data Analysis, Visualization, & Interactive Dashboard Application
